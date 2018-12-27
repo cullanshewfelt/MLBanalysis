@@ -259,15 +259,15 @@ const broadcastInformation = (start_date, end_date, home_away) => {
 //****************************************************************************************************
 // SORT COLUMNS
 //---------------------------------------------------------------------------------------------------- --
-// 'gidp' -- ground into double player
-// 'sac' -- sacrifice fly
+// 'gidp' -- ground into double play
+// 'sac' -- sacrifice hits and bunts
 // 'np' -- number of pitches seen
 // 'name_display_first_last' -- displays name
 // 'pos' -- position
 // 'rank' -- power ranking
 // 'tb' -- total bases
 // 'team_brief' -- team's short name or 'mascot'
-// 'sport_id' --
+// 'sport_id' -- baseball....
 // 'name_display_last_init' -- last name, first initial
 // 'bb' -- walks
 // 'avg' -- batting average
@@ -277,18 +277,18 @@ const broadcastInformation = (start_date, end_date, home_away) => {
 // 'team_abbrev' -- capitalized abbreviated team name
 // 'so' -- strikeouts
 // 'league_id' -- number that refers to team's league and division
-// 'sf' --
+// 'sf' -- sacrifice flies
 // 'team' -- lowercase abbreviation
 // 'league' -- NL or AL
-// 'cs' --
+// 'cs' -- runners caught stealing
 // 'sb' -- stolen bases
-// 'go_ao' --
+// 'go_ao' -- ground out / fly out ratio
 // 'last_name' -- player's last name
 // 'player_id' -- MLB stats API id associated with player
-// 'ibb' --
+// 'ibb' -- intentional walks
 // 'player_qualifier' --
 // 'team_id' -- MLB stats API id associated with player's team
-// 'go' --
+// 'go' -- ground outs
 // 'hr' -- homeruns
 // 'minimum_qualifier' --
 // 'gdp' --
@@ -297,11 +297,11 @@ const broadcastInformation = (start_date, end_date, home_away) => {
 // 'rbi' -- Runners batted in
 // 'name_first' -- player's first name
 // 'bats' -- Bats left handed, right handed, or switch hits.
-// 'xbh' --
+// 'xbh' -- extra base hits
 // 'g' -- games played
 // 'd' --
 // 'team_name' -- name of player's team
-// 'sport' --
+// 'sport' -- baseball...
 // 'tpa' --
 // 'name_display_last_first' -- Last Name, First Name
 // 'h' -- Hits
@@ -334,7 +334,7 @@ const hittingLeaders = (results, game_type, season, sort_column, leader_hitting_
           // console.log(y)
         }
         // See results :
-        // console.log(player)
+        console.log(player)
         // See basic slash line :
         // console.log(`${player.name_display_first_last} hit ${player.hr} homeruns off ${player.h} hits, ${player.rbi} RBI's, in ${player.ab} ABs. Averaging ${player.avg}/${player.obp}/${player.slg}/${player.ops}.`)
       }
@@ -343,5 +343,5 @@ const hittingLeaders = (results, game_type, season, sort_column, leader_hitting_
       console.log(err);
     });
 };
-// hittingLeaders(results, game_type, season, sort_column, leader_hitting_repeater);
+hittingLeaders(results, game_type, season, sort_column, leader_hitting_repeater);
 //****************************************************************************************************

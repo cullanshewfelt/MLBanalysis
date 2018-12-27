@@ -1,0 +1,25 @@
+# SQL connection
+dbconnection.js
+*.exe
+
+# Logs
+
+logs
+*.log
+npm-debug.log*
+
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+
+# Optional npm cache directory
+.npm
+
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
