@@ -2,7 +2,7 @@ const axios = require('axios');
 //****************************************************************************************************
 // FUNCTIONS FOR LEADERBOARD STATISTICS/PLAYERS
 //****************************************************************************************************
-// hittingLeaders returns data regarding the hitting leaderboards
+// hittingLeaders returns data regarding the hitting leaderboards for that season
 //****************************************************************************************************
 // results is a required INTERGER, specifying the number of results to return;
 // season is also a required parameter;
@@ -24,15 +24,15 @@ const axios = require('axios');
 //----------------------------------------------------------------------------------------------------
 // 'gidp' -- ground into double play
 // 'sac' -- sacrifice hits and bunts
-// 'np' -- number of pitches seen
-// 'name_display_first_last' -- displays name
+// 'np' -- total number of pitches seen
+// 'name_display_first_last' -- displays full name
 // 'pos' -- position
 // 'rank' -- power ranking
 // 'tb' -- total bases
 // 'team_brief' -- team's short name or 'mascot'
 // 'sport_id' -- wow i wonder how much variation this will have....
 // 'name_display_last_init' -- last name, first initial
-// 'bb' -- walks
+// 'bb' -- total walks
 // 'avg' -- batting average
 // 'slg' -- slugging average
 // 'ops' -- on base percentage plus slugging
@@ -53,24 +53,24 @@ const axios = require('axios');
 // 'team_id' -- MLB stats API id associated with player's team
 // 'go' -- ground outs
 // 'hr' -- homeruns
-// 'minimum_qualifier' --
-// 'gdp' --
-// 'name_display_roster' --
-// 'qualifies' --
+// 'minimum_qualifier' -- 502 plate appearances
+// 'gdp' -- ground into double play
+// 'name_display_roster' -- name
+// 'qualifies' -- Y or N
 // 'rbi' -- Runners batted in
 // 'name_first' -- player's first name
 // 'bats' -- Bats left handed, right handed, or switch hits.
 // 'xbh' -- extra base hits
 // 'g' -- games played
-// 'd' --
+// 'd' -- total doubles
 // 'team_name' -- name of player's team
 // 'sport' -- baseball...
-// 'tpa' --
+// 'tpa' -- total plate appearances
 // 'name_display_last_first' -- Last Name, First Name
 // 'h' -- Hits
 // 'obp' -- On Base Percentage (Average plus walk rate)
-// 't' --
-// 'ao' --
+// 't' -- triples
+// 'ao' -- flyouts
 // 'r' -- runs
 // 'ab' -- at bats
 // 'name_last' -- player's last name
@@ -89,13 +89,13 @@ const hittingLeaders = (results, game_type, season, sort_column, leader_hitting_
   axios.get(link)
     .then(res =>{
       leaders = res.data.leader_hitting_repeater.leader_hitting_mux.queryResults.row;
-      // console.log(leaders);
+      console.log(leaders);
       for(let players in leaders){
         let player = leaders[players];
-        for(let keys in player){
+        // for(let keys in player){
           // Shows keys, which are the sort_columns
           // console.log(keys)
-        }
+        // }
         // See results :
         console.log(player)
         // See basic slash line :
@@ -108,7 +108,7 @@ const hittingLeaders = (results, game_type, season, sort_column, leader_hitting_
 };
 // hittingLeaders(results, game_type, season, sort_column, leader_hitting_repeater);
 //****************************************************************************************************
-// pitchingLeaders returns data regarding the hitting leaderboards
+// pitchingLeaders returns data regarding the hitting leaderboards for a specific season
 //****************************************************************************************************
 // results is a required INTERGER, specifying the number of results to return;
 // season is also a required parameter;
@@ -117,71 +117,71 @@ const hittingLeaders = (results, game_type, season, sort_column, leader_hitting_
 // SORT COLUMNS
 //----------------------------------------------------------------------------------------------------
 // 'gidp' -- ground into double play
-// 'np' -- number of pitches
+// 'np' -- total number of pitches
 // 'name_display_first_last' -- displays name
 // 'gf' -- games finished
 // 'k_9' -- average number of strikeouts per 9 innings
-// 'rank' -- rank of returned stats
-// 'sho' -- shutouts
-// 'tb' --
-// 'bk' --
-// 'sport_id' --
-// 'sv' --
-// 'name_display_last_init' --
-// 'slg' --
-// 'avg' --
-// 'whip' --
-// 'bb' --
-// 'ops' --
-// 'p_ip' --
-// 'team_abbrev' --
-// 'so' --
-// 'tbf' --
-// 'throws' --
-// 'league_id' --
-// 'wp' --
-// 'team' --
-// 'league' --
-// 'hb' --
-// 'cs' --
-// 'pa' --
-// 'go_ao' --
-// 'sb' --
-// 'last_name' --
-// 'cg' --
-// 'player_id' --
-// 'ibb' --
-// 'gs' --
-// 'h_9' --
-// 'player_qualifier' --
-// 'team_id' --
-// 'go' --
-// 'pk' --
-// 'hr' --
-// 'bb_9' --
-// 'minimum_qualifier' --
-// 'wpct' --
-// 'gdp' --
-// 'era' --
-// 'name_display_roster' --
-// 'qualifies' --
-// 'g' --
-// 'hld' --
-// 'k_bb' --
-// 'team_name' --
-// 'sport' --
-// 'l' --
-// 'svo' --
-// 'name_display_last_first' --
-// 'h' --
-// 'ip' --
-// 'obp' --
-// 'w' --
-// 'ao' --
-// 'r' --
-// 'ab' --
-// 'name_last' --
-// 'er' --
+// 'rank' -- rank amongst returned players
+// 'sho' -- total shutouts
+// 'tb' -- total balls
+// 'bk' -- total balks
+// 'sport_id' -- 1
+// 'sv' -- saves
+// 'name_display_last_init' -- last name, first initial
+// 'slg' -- slugging percentage
+// 'avg' -- average against
+// 'whip' -- walks and hits per innings pitched
+// 'bb' -- total walks
+// 'ops' -- on-base plus slugging
+// 'p_ip' -- pitches per innings pitched
+// 'team_abbrev' -- three letter abbreviation
+// 'so' -- total strikeouts
+// 'tbf' -- total batters faced
+// 'throws' -- left or right
+// 'league_id' -- number corredsponding to league
+// 'wp' -- total wild pitches
+// 'team' -- ??? weird format ??????????????????????
+// 'league' -- NL or AL
+// 'hb' -- total batters hit
+// 'cs' -- total runners caught stealing
+// 'pa' -- total plate appearances
+// 'go_ao' -- groundouts to flyouts ratio
+// 'sb' -- stolen bases against
+// 'last_name' -- last name
+// 'cg' -- complete games
+// 'player_id' -- player's id for this API
+// 'ibb' -- intentional walks
+// 'gs' -- total games saved
+// 'h_9' -- total hits per 9 innings
+// 'player_qualifier' -- innings pitched
+// 'team_id' -- team's id for this API
+// 'go' -- total groundouts
+// 'pk' -- total pickoffs
+// 'hr' -- total homeruns given
+// 'bb_9' -- walks per 9 innings
+// 'minimum_qualifier' -- 162.0 innings
+// 'wpct' -- win percentage
+// 'gdp' -- ground into double play
+// 'era' -- earned run average (9*r/IP)
+// 'name_display_roster' -- last name, first name
+// 'qualifies' -- player_qualifier >= minimum_qualifier (162.0) ? true : false
+// 'g' -- games played
+// 'hld' -- holds
+// 'k_bb' -- strikeout to walk ratio
+// 'team_name' -- team full name
+// 'sport' -- MLB
+// 'l' -- total loses
+// 'svo' -- save opportunities
+// 'name_display_last_first' -- last name, first name
+// 'h' -- total hits
+// 'ip' -- total innings pitched
+// 'obp' -- on base percentage
+// 'w' -- total wins
+// 'ao' -- fly out
+// 'r' -- total runs
+// 'ab' -- at bats
+// 'name_last' -- last name
+// 'er' -- total earned runs
 //****************************************************************************************************
 let results = 5;
 // let game_type = 'R';
@@ -200,17 +200,17 @@ const pitchingLeaders = (results, game_type, season, sort_column, leader_pitchin
       console.log(pitchers);
       for(let leaders in pitchers){
         let player = pitchers[leaders];
-        for(let keys in player){
+        // for(let keys in player){
           // Shows keys, which are the sort_columns
           // console.log(keys)
-        }
+        // }
         // See results :
-        // console.log(player)
+        console.log(player)
       // console.log(`${player.name_display_first_last} hit ${player.hr} homeruns off ${player.h} hits, ${player.rbi} RBI's, in ${player.ab} ABs. Averaging ${player.avg}/${player.obp}/${player.slg}/${player.ops}.`)
       }
     })
     .catch(err =>{
-      // console.log(err);
+      console.log(err);
     });
 };
 
