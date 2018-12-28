@@ -1,4 +1,5 @@
 const axios = require('axios');
+const columnify = require('columnify');
 //****************************************************************************************************
 // FUNCTIONS FOR PLAYER SEARCH/LOOKUP
 //****************************************************************************************************
@@ -15,7 +16,21 @@ const playerSearch = (name, active) => {
   axios.get(link)
     .then(res =>{
       player = res.data.search_player_all.queryResults.row;
-      console.log(player)
+      // console.log(player)
+      let data = {
+        name: player.name_display_first_last,
+        height: `${player.height_feet}'${player.height_inches}"`,
+        weight: player.weight,
+        position: player.position,
+        team: player.team_full,
+        throws: player.throws,
+        bats: player.bats,
+        birthplace: `${player.birth_city}, ${player.birth_country}`,
+        player_id: player.player_id,
+        college: player.college
+      }
+      let columns = columnify(data);
+      console.log(columns)
     })
     .catch(err =>{
       console.log(err)

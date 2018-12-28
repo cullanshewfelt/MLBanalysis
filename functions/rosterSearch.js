@@ -1,4 +1,5 @@
 const axios = require('axios');
+var columnify = require('columnify');
 //****************************************************************************************************
 // FUNCTIONS FOR ROSTERS AND TEAMS
 //****************************************************************************************************
@@ -27,12 +28,13 @@ const listTeams = (season, allStar) => {
 // fortyManRoster returns the ACTIVE 40 man roster of a given team
 //****************************************************************************************************
 const fortyManRoster = (team_id) => {
+  console.log(team_id)
   let link = `http://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${team_id}'`;
   let roster;
   axios.get(link)
     .then(res =>{
       roster = res.data.roster_40.queryResults.row;
-      // console.log(roster);
+      console.log(roster);
       for(let player in roster){
         // console.log(roster[player].name_display_first_last);
       }
