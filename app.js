@@ -1,5 +1,6 @@
-//****************************************************************************************************
+const lines = '***************************************************************************************';
 const axios = require('axios');
+const inquirer = require('inquirer');
 //****************************************************************************************************
 // Here are all the modules being imported.
 // Refer to ./functions/ to see logic & API endpoints
@@ -73,8 +74,101 @@ let end_date = '20181227';
 let results = 3;
 // let game_type = 'R';
 // let season = '2018';
-let sort_column = 'hr';
+let sort_column = 'era';
 let leader_hitting_repeater;
 let leader_pitching_repeater;
 // leaderboards.hittingLeaders(results, game_type, season, sort_column, leader_hitting_repeater);
 // leaderboards.pitchingLeaders(results, game_type, season, sort_column, leader_pitching_repeater);
+//****************************************************************************************************
+// INQUIRER LOGIC
+//****************************************************************************************************
+
+const menu = () => {
+  inquirer
+    .prompt([{
+      type: 'input',
+      name: 'menu',
+      message: "Type 'Menu' or hit enter to see the menu. Type in a player's name to search for a player."
+    }]).then(answers => {
+      answers.menu === ''  ? subMenu()
+      : answers.menu.toLowerCase().trim() === 'menu' ? subMenu() : playerSearch.playerSearch(answer.menu, 'Y')
+
+      // console.log(answers.menu)
+      // console.log(!!answers.menu)
+      // (!!answers.menu == false ) || (answers.menu.toLowerCase() == 'menu') ? console.log('Menu') : console.log('search')
+    })
+}
+
+const subMenu = () => {
+  inquirer
+    .prompt([{
+      type: 'list',
+      name: 'submenu',
+      message: 'Welcome to the MLB stats app. What would you like to do?',
+      choices: ['Roster Search Menu', 'Player Search Menu', 'Player Statistics Menu', 'Reports Menu']
+    }]).then(menu => {
+      switch (menu.submenu){
+        case 'Roster Search Menu':
+          console.log('Roster Search Menu');
+          break;
+        case 'Player Search Menu':
+          playerSearchPrompt();
+          break;
+        case 'Player Statistics Menu':
+          console.log('Player Statistics Menu');
+          break;
+        case 'Reports Menu':
+          console.log('Reports Menu');
+          break;
+      }
+
+    });
+};
+
+const rosterSearchPrompt = () => {
+  // inquirer
+  //   .prompt([{
+  //     type: ''
+  //   }])
+}
+
+const playerSearchPrompt = () => {
+  console.log('test');
+  inquirer
+    .prompt([{
+      type: 'list',
+      name: 'playerSearch',
+      message: 'What would you like to do?',
+      choices: ['Search For a Player By Name', 'Search For a Player By ID']
+    }]).then(menu =>{
+      switch(menu.playerSearch){
+        case 'Search For a Player By Name':
+          console.log('1')
+          break;
+        case 'Search For a Player By ID':
+          console.log('2');
+          break;
+      }
+    })
+}
+
+const searchByNamePrompt = () =>{
+  inquirer
+    .prompt([{
+      type: 'input',
+      name: 'name',
+      message: 'Search For A Player By Name'
+    }]).then(answer => {
+      playerSearch.playerSearch(answer.name, 'Y')
+    })
+}
+
+//****************************************************************************************************
+// INITIALIZE
+//****************************************************************************************************
+
+menu()
+
+//****************************************************************************************************
+
+//****************************************************************************************************
