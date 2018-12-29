@@ -86,9 +86,8 @@ const seasonHittingStats = (player_id, season, game_type, callback) => {
         home_runs: stats.hr,
         walks: stats.bb,
       }
-      // console.log(stats)
-      // console.log(data)
-      callback(data)
+      // console.log(stats);
+      callback(data);
     })
     .catch(err =>{
       console.log(err);
@@ -99,13 +98,25 @@ const seasonHittingStats = (player_id, season, game_type, callback) => {
 //****************************************************************************************************
 // seasonPitchingStats returns pitching statistics given a player_id, season (year), and game_type
 //****************************************************************************************************
-const seasonPitchingStats = (player_id, season, game_type) => {
-  let link = `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='${game_type}'&season='${season}'&player_id='${player_id}'`;
+const seasonPitchingStats = (player_id, season, game_type, callback) => {
+  let gameType = game_type.split('-')[1];
+  let link = `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='${gameType}'&season='${season}'&player_id='${player_id}'`;
   let stats;
   axios.get(link)
     .then(res =>{
       stats = res.data.sport_pitching_tm.queryResults.row;
-      console.log(stats);
+      let data = {
+        era: stats.era,
+        whip: stats.whip,
+        average: stats.avg,
+        hits: stats.h,
+        innings_pitched: stats.ip,
+        wins: stats.w,
+        loses: stats.l,
+        games_started: stats.gs
+      }
+      // console.log(stats);
+      callback(data);
     })
     .catch(err =>{
       console.log(err);
