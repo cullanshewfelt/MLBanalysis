@@ -32,14 +32,7 @@ const fortyManRoster = (team_id, callback) => {
         }
         dataArray.push(data);
       }
-      console.log('****************************************************************************************************************************************************************')
-      console.log(`************************************************************** ${roster[0].team_name} 40 Man Roster ***************************************************************`)
-      console.log('****************************************************************************************************************************************************************')
-      let columns = columnify(dataArray, {
-        columnSplitter: '__|__',
-        paddingChr: '_'
-      });
-      callback(columns);
+      callback(dataArray);
     })
     .catch(err => {
       console.log(err);
@@ -54,7 +47,6 @@ const listTeams = (season, allStar, callback) => {
   let link = allStar ?
     `http://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='${allStar}'&sort_order=name_asc&season='${season}'` :
     `http://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='${season}'`;
-
   let teams;
   axios.get(link)
     .then(res => {
@@ -74,14 +66,7 @@ const listTeams = (season, allStar, callback) => {
         };
         dataArray.push(data);
       };
-      let columns = columnify(dataArray, {
-        columnSplitter: '__|__',
-        paddingChr: '_'
-      });
-      console.log('****************************************************************************************************************************************************************')
-      console.log(`************************************************************************* ${season} Teams ***************************************************************************`)
-      console.log('****************************************************************************************************************************************************************')
-      callback(columns);
+      callback(dataArray);
     })
     .catch(err => {
       console.log(err);
@@ -115,14 +100,7 @@ const rosterBySeason = (team_id, start, end, callback) => {
         }
         dataArray.push(data);
       }
-      console.log('**************************************************************************************************************')
-      console.log(`************************************************** ${roster[0].team_id} Roster ************************************************`)
-      console.log('**************************************************************************************************************')
-      let columns = columnify(dataArray, {
-        columnSplitter: '__|__',
-        paddingChr: '_'
-      });
-      callback(columns);
+      callback(dataArray);
     })
     .catch(err => {
       console.log(err);
