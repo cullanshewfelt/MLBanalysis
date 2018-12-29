@@ -9,6 +9,7 @@ const columnify = require('columnify');
 // Can search active and inactive players (an optional parameter).
 //****************************************************************************************************
 const playerSearch = (name, active) => {
+  console.log('\033[2J');
   let link = active
   ? `http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='${active}'&name_part='${name}%25'`
   : `http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${name}%25'`;
@@ -19,18 +20,25 @@ const playerSearch = (name, active) => {
       // console.log(player)
       let data = {
         name: player.name_display_first_last,
+        player_id: player.player_id,
         height: `${player.height_feet}'${player.height_inches}"`,
         weight: player.weight,
         position: player.position,
         team: player.team_full,
+        team_id: player.team_id,
         throws: player.throws,
         bats: player.bats,
         birthplace: `${player.birth_city}, ${player.birth_country}`,
-        player_id: player.player_id,
         college: player.college
       }
-      let columns = columnify(data);
-      console.log(columns)
+      let columns = columnify(data, {
+        columnSplitter: '__|__',
+        paddingChr: '_'
+      });
+      console.log('***********************************')
+      console.log(`******* ${player.name_display_first_last} Info **********`)
+      console.log('***********************************')
+      console.log(columns);
     })
     .catch(err =>{
       console.log(err)
@@ -46,7 +54,22 @@ const playerLookup = (player_id) => {
   axios.get(link)
     .then(res =>{
       player = res.data.player_info.queryResults.row;
-      console.log(player);
+      // console.log(player);
+      let data = {
+        name: player.name_display_first_last,
+        player_id: player.player_id,
+        height: `${player.height_feet}'${player.height_inches}"`,
+        weight: player.weight,
+        position: player.primary_position_txt,
+        team: player.team_name,
+        team_id: player.team_id,
+        throws: player.throws,
+        bats: player.bats,
+        birthplace: `${player.birth_city}, ${player.birth_country}`,
+        college: player.college
+      }
+      let columns = columnify(data);
+      console.log(columns)
     })
     .catch(err =>{
       console.log(err);
