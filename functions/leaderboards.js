@@ -106,6 +106,9 @@ const hittingLeaders = (results, game_type, season, sort_column, leader_hitting_
       console.log(err);
     });
 };
+
+module.exports.hittingLeaders = hittingLeaders;
+
 // hittingLeaders(results, game_type, season, sort_column, leader_hitting_repeater);
 //****************************************************************************************************
 // pitchingLeaders returns data regarding the hitting leaderboards for a specific season
@@ -183,13 +186,13 @@ const hittingLeaders = (results, game_type, season, sort_column, leader_hitting_
 // 'name_last' -- last name
 // 'er' -- total earned runs
 //****************************************************************************************************
-let results = 5;
+// let results = 5;
 // let game_type = 'R';
 // let season = '2018';
-let sort_column = 'era';
-let leader_pitching_repeater;
+// let sort_column = 'era';
+// let leader_pitching_repeater;
 
-const pitchingLeaders = (results, game_type, season, sort_column, leader_pitching_repeater) => {
+const pitchingLeaders = (results, game_type, season, sort_column, leader_pitching_repeater, callback) => {
   let link =  leader_pitching_repeater
   ? `http://lookup-service-prod.mlb.com/json/named.leader_pitching_repeater.bam?sport_code='mlb'&results=${results}&game_type='${game_type}'&season='${season}'&sort_column='${sort_column}'&leader_pitching_repeater.col_in=${leader_pitching_repeater}`
   : `http://lookup-service-prod.mlb.com/json/named.leader_pitching_repeater.bam?sport_code='mlb'&results=${results}&game_type='${game_type}'&season='${season}'&sort_column='${sort_column}'`
@@ -214,7 +217,6 @@ const pitchingLeaders = (results, game_type, season, sort_column, leader_pitchin
     });
 };
 
-// pitchingLeaders(results, game_type, season, sort_column, leader_pitching_repeater);
-
 module.exports.pitchingLeaders = pitchingLeaders;
-module.exports.hittingLeaders = hittingLeaders;
+
+// pitchingLeaders(results, game_type, season, sort_column, leader_pitching_repeater);

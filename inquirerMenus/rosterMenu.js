@@ -67,7 +67,8 @@ const listTeams = (currentMenu) => {
     .prompt([{
       type: 'input',
       name: 'year',
-      message: 'Enter a Season (Year Format: YYYY) to See Teams'
+      message: 'Enter a Season (Year Format: YYYY) to See Teams',
+      validate: tools.validateYear
     }]).then(answer => {
       rosterSearch.listTeams(answer.year, 'N', data => {
         let columns = tools.quickColumn(data);
@@ -92,11 +93,13 @@ const rosterBySeason = (currentMenu) => {
     }, {
       type: 'input',
       name: 'start_year',
-      message: 'Enter the Start Year (YYYY)'
+      message: 'Enter the Start Year (YYYY)',
+      validate: tools.validateYear
     }, {
       type: 'input',
       name: 'end_year',
-      message: 'Enter the End Year (YYYY)'
+      message: 'Enter the End Year (YYYY)',
+      validate: tools.validateYear
     }]).then(answer => {
       rosterSearch.rosterBySeason(answer.team_id, answer.start_year, answer.end_year, data => {
         rosterSearch.fortyManRoster(answer.team_id.toString(), roster => {

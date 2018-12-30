@@ -31,6 +31,8 @@ const quickNameLookup = (name) => {
 }
 module.exports.quickNameLookup = quickNameLookup;
 
+//----------------------------------------------------------------------------------------------------
+
 const quickStatsLookup = (player) => {
   inquirer
     .prompt([{
@@ -53,6 +55,8 @@ const quickStatsLookup = (player) => {
 
 module.exports.quickStatsLookup = quickStatsLookup;
 
+//----------------------------------------------------------------------------------------------------
+
 const quickHittingLookup = (answer, player_id) => {
   seasonStats.seasonHittingStats(player_id, answer.season, answer.game_type, stats => {
     quickPlayerStats(player_id, stats);
@@ -61,6 +65,8 @@ const quickHittingLookup = (answer, player_id) => {
 
 module.exports.quickHittingLookup = quickHittingLookup;
 
+//----------------------------------------------------------------------------------------------------
+
 const quickPitchingLookup = (answer, player_id) => {
   seasonStats.seasonPitchingStats(player_id, answer.season, answer.game_type, stats => {
     quickPlayerStats(player_id, stats);
@@ -68,6 +74,8 @@ const quickPitchingLookup = (answer, player_id) => {
 }
 
 module.exports.quickPitchingLookup = quickPitchingLookup;
+
+//----------------------------------------------------------------------------------------------------
 
 const quickPlayerStats = (player_id, stats) => {
   playerSearch.playerLookup(player_id, data => {
@@ -80,3 +88,18 @@ const quickPlayerStats = (player_id, stats) => {
 }
 
 module.exports.quickPlayerStats = quickPlayerStats;
+
+//----------------------------------------------------------------------------------------------------
+
+const validateYear = (year) => {
+  const reg = /^\d{4,4}\b/;
+  return reg.test(year) ? reg.test(year) : "Please Enter a Valid Year (Format: YYYY)."
+}
+
+module.exports.validateYear = validateYear;
+
+//----------------------------------------------------------------------------------------------------
+
+
+
+//----------------------------------------------------------------------------------------------------

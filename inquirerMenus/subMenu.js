@@ -11,7 +11,6 @@ const seasonStats = require('../functions/seasonStats.js');
 const leagueStats = require('../functions/leagueStats.js');
 const careerStats = require('../functions/careerStats.js');
 const reports = require('../functions/reports.js');
-const leaderboards = require('../functions/leaderboards.js');
 
 const subMenu = () => {
   inquirer
@@ -19,7 +18,7 @@ const subMenu = () => {
       type: 'list',
       name: 'subMenu',
       message: 'Welcome to the MLB stats app. What would you like to do?',
-      choices: ['Roster Search Menu', 'Player Search Menu', 'Player Statistics Menu', 'Reports Menu', 'Back']
+      choices: ['Roster Search Menu', 'Player Search Menu', 'Player Statistics Menu', 'Leaderboards', 'Reports Menu', 'Back']
     }]).then(submenu => {
       console.log('\033[2J');
       let currentMenu = Object.keys(submenu)[0];
@@ -36,6 +35,8 @@ const subMenu = () => {
         case 'Reports Menu':
           reportsMenu.reportsPrompt(currentMenu);
           break;
+        case 'Leaderboards':
+          leaderboardsMenu.leaderboardsPrompt();
         case 'Back':
           menu.menu();
           break;
