@@ -47,7 +47,8 @@ const seasonHittingPrompt = (currentMenu) => {
       {
         type: 'input',
         name: 'season',
-        message: 'Enter the year (format: YYYY) of the season you want stats for'
+        message: 'Enter the year (format: YYYY) of the season you want stats for',
+        validate: tools.validateYear
       },
       {
         type: 'list',
@@ -57,7 +58,7 @@ const seasonHittingPrompt = (currentMenu) => {
       }
     ]).then(answer => {
       seasonStats.seasonHittingStats(answer.id, answer.season, answer.game_type, stats => {
-        dataParse(answer.id, stats);
+        dataParse(answer.id, stats, answer.season);
       });
     });
 };
@@ -77,7 +78,8 @@ const seasonPitchingPrompt = (currentMenu) => {
       {
         type: 'input',
         name: 'season',
-        message: 'Enter the year (format: YYYY) of the season you want stats for'
+        message: 'Enter the year (format: YYYY) of the season you want stats for',
+        validate: tools.validateYear
       },
       {
         type: 'list',
@@ -87,7 +89,7 @@ const seasonPitchingPrompt = (currentMenu) => {
       }
     ]).then(answer => {
       seasonStats.seasonPitchingStats(answer.id, answer.season, answer.game_type, stats => {
-        dataParse(answer.id, stats);
+        dataParse(answer.id, stats, answer.season);
       });
     });
 };
@@ -96,12 +98,12 @@ module.exports.seasonPitchingPrompt = seasonHittingPrompt;
 
 //----------------------------------------------------------------------------------------------------
 
-const dataParse = (player_id, stats) => {
+const dataParse = (player_id, stats, season) => {
     playerSearch.playerLookup(player_id, data => {
       let columns = tools.quickColumn(stats)
-      console.log('***********************************************')
-      console.log(`****** ${data.name}'s Statistics *****************`)
-      console.log('***********************************************')
+      console.log('****************************************************')
+      console.log(`****** ${data.name}'s Statistics for ${season} ******`)
+      console.log('****************************************************')
       console.log(columns);
   });
 };
