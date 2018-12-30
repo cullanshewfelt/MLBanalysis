@@ -10,18 +10,32 @@ const axios = require('axios');
 // let start_date = '20181211';
 // let end_date = '20181218';
 
-const transactionsOverPeriod = (start_date, end_date) => {
+const transactionsOverPeriod = (start_date, end_date, callback) => {
   let link = `http://lookup-service-prod.mlb.com/json/named.transaction_all.bam?sport_code='mlb'&start_date='${start_date}'&end_date='${end_date}'`;
   let players;
   axios.get(link)
     .then(res =>{
-      players = res.data.transaction_all.queryResults.row;
-      console.log(players);
+      let dataArray = [];
+      transactions = res.data.transaction_all.queryResults.row;
+      for(let t in transactions){
+        let data = {
+          transaction: transactions[t].note,
+          name: transactions[t].player,
+          team: transactions[t].team,
+          date: transactions[t].trans_date,
+          player_id: transactions[t].player_id,
+          transaction_id: transactions[t].transaction_id
+        }
+        dataArray.push(data);
+      }
+      callback(dataArray);
     })
     .catch(err =>{
       console.log(err);
     });
 };
+module.exports.transactionsOverPeriod = transactionsOverPeriod;
+
 // transactionsOverPeriod(start_date, end_date);
 //****************************************************************************************************
 // broadcastInformation returns all data about broadcast over a given period of time
@@ -70,6 +84,5 @@ const injuryReport = () => {
 };
 // injuryReport();
 
-module.exports.transactionsOverPeriod = transactionsOverPeriod;
 module.exports.broadcastInformation = broadcastInformation;
 module.exports.injuryReport = injuryReport;

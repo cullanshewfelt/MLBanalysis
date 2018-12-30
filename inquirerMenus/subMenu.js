@@ -34,7 +34,7 @@ const subMenu = () => {
           statisticsMenu.statsSearchPrompt(currentMenu);
           break;
         case 'Reports Menu':
-          console.log('Reports Menu');
+          reportsMenu.reportsPrompt(currentMenu);
           break;
         case 'Back':
           menu.menu();
