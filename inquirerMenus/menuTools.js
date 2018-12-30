@@ -16,6 +16,7 @@ const quickColumn = (data) => {
   return columns;
 };
 
+module.exports.quickColumn = quickColumn;
 //----------------------------------------------------------------------------------------------------
 
 const quickNameLookup = (name) => {
@@ -25,10 +26,10 @@ const quickNameLookup = (name) => {
     console.log(`******* ${player.name} Info **********`)
     console.log('***********************************')
     console.log(columns);
-    // seasonHittingPrompt()
     quickStatsLookup(player);
   });
 }
+module.exports.quickNameLookup = quickNameLookup;
 
 const quickStatsLookup = (player) => {
   inquirer
@@ -50,17 +51,23 @@ const quickStatsLookup = (player) => {
     })
 }
 
+module.exports.quickStatsLookup = quickStatsLookup;
+
 const quickHittingLookup = (answer, player_id) => {
   seasonStats.seasonHittingStats(player_id, answer.season, answer.game_type, stats => {
     quickPlayerStats(player_id, stats);
   });
 }
 
+module.exports.quickHittingLookup = quickHittingLookup;
+
 const quickPitchingLookup = (answer, player_id) => {
   seasonStats.seasonPitchingStats(player_id, answer.season, answer.game_type, stats => {
     quickPlayerStats(player_id, stats);
   });
 }
+
+module.exports.quickPitchingLookup = quickPitchingLookup;
 
 const quickPlayerStats = (player_id, stats) => {
   playerSearch.playerLookup(player_id, data => {
@@ -72,11 +79,4 @@ const quickPlayerStats = (player_id, stats) => {
   });
 }
 
-module.exports = {
-  quickColumn: quickColumn,
-  quickNameLookup: quickNameLookup,
-  quickStatsLookup: quickStatsLookup,
-  quickHittingLookup: quickHittingLookup,
-  quickPitchingLookup: quickPitchingLookup,
-  quickPlayerStats: quickPlayerStats
-}
+module.exports.quickPlayerStats = quickPlayerStats;

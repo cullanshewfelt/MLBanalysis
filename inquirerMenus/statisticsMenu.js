@@ -11,7 +11,7 @@ const playerSearchMenu = require('./playerSearchMenu.js');
 
 const statsSearchPrompt = (currentMenu) => {
   // console.log('\033[2J');
-inquirer
+  inquirer
     .prompt([{
       type: 'list',
       name: 'statSearch',
@@ -23,7 +23,7 @@ inquirer
           seasonHittingPrompt();
           break;
         case 'Season Pitching Stats':
-          console.log('Season Pitching Stats')
+          seasonPitchingPrompt();
           break;
         case 'Main Menu':
           console.log('\033[2J');
@@ -57,16 +57,53 @@ const seasonHittingPrompt = (currentMenu) => {
       }
     ]).then(answer => {
       seasonStats.seasonHittingStats(answer.id, answer.season, answer.game_type, stats => {
-        playerSearch.playerLookup(answer.id, data => {
-          let columns = tools.quickColumn(stats)
-          console.log('****************************************************************************************************************************************************************')
-          console.log(`***************************************************************** ${data.name}'s Statistics ******************************************************************`)
-          console.log('****************************************************************************************************************************************************************')
-          console.log(data.name)
-          console.log(columns);
-        });
+        dataParse(answer.id, stats);
       });
     });
 };
 
 module.exports.seasonHittingPrompt = seasonHittingPrompt;
+
+//----------------------------------------------------------------------------------------------------
+
+const seasonPitchingPrompt = (currentMenu) => {
+  // console.log('\033[2J');
+  inquirer
+    .prompt([{
+        type: 'input',
+        name: 'id',
+        message: 'Enter Player ID to see Pitching Stats'
+      },
+      {
+        type: 'input',
+        name: 'season',
+        message: 'Enter the year (format: YYYY) of the season you want stats for'
+      },
+      {
+        type: 'list',
+        name: 'game_type',
+        message: 'Choose the game type you want stats for',
+        choices: ['Regular Season -R', 'World Series -W', 'League Championship -L', 'First Round (Wild Card) -F', 'Division Series -D', 'Spring Training -S']
+      }
+    ]).then(answer => {
+      seasonStats.seasonPitchingStats(answer.id, answer.season, answer.game_type, stats => {
+        dataParse(answer.id, stats);
+      });
+    });
+};
+
+module.exports.seasonPitchingPrompt = seasonHittingPrompt;
+
+//----------------------------------------------------------------------------------------------------
+
+const dataParse = (player_id, stats) => {
+    playerSearch.playerLookup(player_id, data => {
+      let columns = tools.quickColumn(stats)
+      console.log('***********************************************')
+      console.log(`****** ${data.name}'s Statistics *****************`)
+      console.log('***********************************************')
+      console.log(columns);
+  });
+};
+
+//----------------------------------------------------------------------------------------------------

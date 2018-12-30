@@ -8,18 +8,8 @@ const inquirer = require('inquirer');
 const columnify = require('columnify');
 
 const subMenu = require('./subMenu.js');
-const rosterMenu = require('./rosterMenu.js');
 const tools = require('./menuTools.js');
-const playerSearchMenu = require('./playerSearchMenu.js');
 
-// const playerSearch = require('../functions/playerSearch.js');
-
-const projectedStats = require('../functions/projectedStats.js');
-const seasonStats = require('../functions/seasonStats.js');
-const leagueStats = require('../functions/leagueStats.js');
-const careerStats = require('../functions/careerStats.js');
-const reports = require('../functions/reports.js');
-const leaderboards = require('../functions/leaderboards.js');
 //****************************************************************************************************
 // Visit ./functions/ to see logic & API endpoints
 //----------------------------------------------------------------------------------------------------
@@ -61,9 +51,10 @@ const menu = () => {
       name: 'menu',
       message: "Type 'Menu' or hit enter to see the menu. Type in a player's name to search for a player."
     }]).then(answer => {
+      console.log('\033[2J');
       answer.menu === '' ? subMenu.subMenu() :
         answer.menu.toLowerCase().trim() === 'menu' ? subMenu.subMenu() :
-        tools.quickNameLookup(answer.menu)
+        tools.quickNameLookup(answer.menu);
     });
 }
 
@@ -83,10 +74,6 @@ const searchAgain = (currentMenu) => {
 
     })
 };
-
-//----------------------------------------------------------------------------------------------------
-// REPORTS MENUS
-//----------------------------------------------------------------------------------------------------
 
 
 //****************************************************************************************************

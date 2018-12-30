@@ -16,21 +16,18 @@ const playerSearchPrompt = (currentMenu) => {
       message: 'What would you like to do?',
       choices: ['Search For a Player By Name', 'Search For a Player By ID', 'Search For a Player\'s Teams', 'Main Menu']
     }]).then(submenu => {
+      console.log('\033[2J');
       switch (submenu.playerSearch) {
         case 'Search For a Player By Name':
-          console.log('\033[2J');
           searchByNamePrompt(currentMenu);
           break;
         case 'Search For a Player By ID':
-          console.log('\033[2J');
           searchByIdPrompt(currentMenu);
           break;
         case 'Search For a Player\'s Teams':
-          console.log('\033[2J');
           playerTeamsPrompt(currentMenu);
           break;
         case 'Main Menu':
-          console.log('\033[2J');
           menu.menu();
           break;
       }
@@ -53,14 +50,14 @@ const searchByNamePrompt = (currentMenu) => {
 //----------------------------------------------------------------------------------------------------
 
 const searchByIdPrompt = (currentMenu) => {
-  // console.log('\033[2J');
   inquirer
     .prompt([{
       type: 'input',
       name: 'id',
       message: 'Search For A Player By ID'
-    }]).then(answer => {
-      playerSearch.playerLookup(answer.id, data => {
+    }]).then(query => {
+      playerSearch.playerLookup(query.id, data => {
+
         let columns = tools.quickColumn(data);
         console.log(columns)
         showStatsPrompt(data);
@@ -71,20 +68,18 @@ const searchByIdPrompt = (currentMenu) => {
 //----------------------------------------------------------------------------------------------------
 
 const showStatsPrompt = (data) => {
-  // console.log(data)
   inquirer
     .prompt([{
       name: 'action',
       type: 'list',
       message: `Show ${data.name}'s Stats?`,
       choices: [`Show ${data.name}'s Stats`, 'Main Menu']
-    }]).then(answer => {
-      switch (answer.action) {
-        case `Show ${data.name}'s Stats?`:
-          tools.quickStatsLookup(data.player_id)
+    }]).then(query => {
+      switch (query.action) {
+        case `Show ${data.name}'s Stats`:
+          tools.quickStatsLookup(data);
           break;
         case 'Main Menu':
-          console.log('main menu')
           menu.menu()
           break;
       }
@@ -94,7 +89,6 @@ const showStatsPrompt = (data) => {
 //----------------------------------------------------------------------------------------------------
 
 const playerTeamsPrompt = (currentMenu) => {
-  console.log('\033[2J');
   inquirer
     .prompt([{
       type: 'input',
@@ -103,12 +97,12 @@ const playerTeamsPrompt = (currentMenu) => {
     }, {
       type: 'input',
       name: 'season',
-      message: 'Enter A Season (Year Format: YYYY)'
-    }]).then(answer => {
-      playerSearch.playerTeams(answer.id, answer.season, data => {
-        playerSearch.playerLookup(answer.id, player => {
+      message: 'OPTIONAL: Enter A Season (Year Format: YYYY). Will return all teams throughout career if left blank.'
+    }]).then(query => {
+      playerSearch.playerTeams(query.id, query.season, data => {
+        playerSearch.playerLookup(query.id, player => {
           console.log('*********************************************************************************************************')
-          console.log(`*********************************** ${player.name}'s Teams in ${answer.season} ****************************************`)
+          console.log(`*********************************** ${player.name}'s Teams in ${query.season} ****************************************`)
           console.log('*********************************************************************************************************')
           let columns = tools.quickColumn(data);
           console.log(columns);

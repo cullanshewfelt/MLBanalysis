@@ -79,14 +79,17 @@ const seasonHittingStats = (player_id, season, game_type, callback) => {
   axios.get(link)
     .then(res =>{
       stats = res.data.sport_hitting_tm.queryResults.row;
+      // console.log(stats)
       let data = {
         average: stats.avg,
         hits: stats.h,
-        rbis: stats.rbi,
         home_runs: stats.hr,
+        runs: stats.r,
+        rbis: stats.rbi,
         walks: stats.bb,
+        stolen_bases: stats.sb,
+        left_on_base: stats.lob
       }
-      // console.log(stats);
       callback(data);
     })
     .catch(err =>{
@@ -105,17 +108,19 @@ const seasonPitchingStats = (player_id, season, game_type, callback) => {
   axios.get(link)
     .then(res =>{
       stats = res.data.sport_pitching_tm.queryResults.row;
+      // console.log(stats)
       let data = {
         era: stats.era,
         whip: stats.whip,
         average: stats.avg,
+        strikeouts: stats.so,
         hits: stats.h,
+        walks: stats.bb,
         innings_pitched: stats.ip,
         wins: stats.w,
         loses: stats.l,
         games_started: stats.gs
       }
-      // console.log(stats);
       callback(data);
     })
     .catch(err =>{
