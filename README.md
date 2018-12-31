@@ -29,12 +29,11 @@ Just install required npm dependencies
 
 -   You can run **`mlb.js`** with or without arguments.
 -   Running without arguments will bring you to the home screen.
--   The only arguments it can accept right now are players names (not case sensitive) and active status.
--   Full names will always yield a result. Last names will not yield multiple results.  
+-   The only arguments it can accept right now are players names and active status.
 
 ### [Options](#options)
-
-**-active_status** takes two arguments:
+**player** is an optional argument (not case sensitive). Full names will always yield a result. Only one player will be returned, thus last names aren't the best query, as many players share the same last name. 
+**-active_status** is and optional argument and takes one of two options:
 
 -   **-a** will return results for an **active** player. This is the default value if left blank.
 -   **-i** will return results for an **inactive** player
