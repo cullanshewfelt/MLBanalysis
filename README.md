@@ -25,7 +25,7 @@ Just install required npm dependencies
 
 ## [Running the Program](#runningtheprogram)
 
-    node mlb.js [player] [-active_status]
+    node MLBanalysis.js [player] [-active_status]
 
 -   You can run **`mlb.js`** with or without arguments.
 -   Running without arguments will bring you to the home screen.
