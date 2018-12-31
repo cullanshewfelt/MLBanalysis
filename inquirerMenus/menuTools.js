@@ -49,9 +49,9 @@ const quickStatsLookup = (player) => {
         filter: gameTypeFilter
       }
     ]).then(answer => {
-      player.position === 'P'
-      ? quickPitchingLookup(answer, player.player_id)
-      : quickHittingLookup(answer, player.player_id);
+      player.position === 'P' ?
+        quickPitchingLookup(answer, player.player_id) :
+        quickHittingLookup(answer, player.player_id);
     })
 }
 
@@ -115,17 +115,17 @@ module.exports.validateResults = validateResults;
 const gameTypeFilter = (game_type) => {
   switch (game_type) {
     case 'Regular Season':
-    return 'R'
+      return 'R'
     case 'World Series':
-    return 'W'
+      return 'W'
     case 'League Championship':
-    return 'L'
+      return 'L'
     case 'First Round (Wild Card)':
-    return 'F'
+      return 'F'
     case 'Division Series':
-    return 'D'
+      return 'D'
     case 'Spring Training':
-    return 'S'
+      return 'S'
   }
 }
 
@@ -133,19 +133,23 @@ module.exports.gameTypeFilter = gameTypeFilter;
 //----------------------------------------------------------------------------------------------------
 
 const sortColumnFilter = (sort_column) => {
-  switch(sort_column){
+  switch (sort_column) {
     case 'Home Runs':
-    return 'hr'
+      return 'hr'
     case 'Batting Average':
-    return 'avg'
+      return 'avg'
     case 'Hits':
-    return 'h'
-    case 'First Round (Wild Card)':
-    return 'F'
-    case 'Division Series':
-    return 'D'
-    case 'Spring Training':
-    return 'S'
+      return 'h'
+    case 'Earned Run Average':
+      return 'era'
+    case 'Walks and Hits Per Innings Pitched':
+      return 'whip'
+    case 'Strikeouts':
+      return 'so'
+    case 'Walks':
+      return 'bb'
+    case 'Strikeout/Walk Ratio':
+      return 'k_bb'
   }
 }
 

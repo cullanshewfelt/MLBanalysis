@@ -94,7 +94,6 @@ const hittingLeaders = (results, game_type, season, sort_column, callback) => {
       // console.log(leaders);
       for (let players in leaders) {
         let player = leaders[players];
-        // console.log(player[sort_column])
         console.log(player)
         let data = {
           name: player.name_display_first_last,
@@ -127,6 +126,7 @@ module.exports.hittingLeaders = hittingLeaders;
 // season is also a required parameter;
 // game_type is a required parameter;
 // sort_column is a required parameter, specifying which stat to sort by: 'era', 'so', etc.
+//----------------------------------------------------------------------------------------------------
 // SORT COLUMNS
 //----------------------------------------------------------------------------------------------------
 // 'gidp' -- ground into double play
@@ -196,32 +196,40 @@ module.exports.hittingLeaders = hittingLeaders;
 // 'name_last' -- last name
 // 'er' -- total earned runs
 //****************************************************************************************************
-// let results = 5;
-// let game_type = 'R';
-// let season = '2018';
-// let sort_column = 'era';
-// let leader_pitching_repeater;
 
 const pitchingLeaders = (results, game_type, season, sort_column, callback) => {
-  let leader_hitting_repeater;
+  let leader_pitching_repeater;
   let link = leader_pitching_repeater ?
     `http://lookup-service-prod.mlb.com/json/named.leader_pitching_repeater.bam?sport_code='mlb'&results=${results}&game_type='${game_type}'&season='${season}'&sort_column='${sort_column}'&leader_pitching_repeater.col_in=${leader_pitching_repeater}` :
     `http://lookup-service-prod.mlb.com/json/named.leader_pitching_repeater.bam?sport_code='mlb'&results=${results}&game_type='${game_type}'&season='${season}'&sort_column='${sort_column}'`
   let pitchers;
   axios.get(link)
     .then(res => {
-      pitchers = res.data.leader_pitching_repeater.leader_pitching_mux.queryResults.row;
-      console.log(pitchers);
-      for (let leaders in pitchers) {
-        let player = pitchers[leaders];
-        // for(let keys in player){
-        // Shows keys, which are the sort_columns
-        // console.log(keys)
-        // }
-        // See results :
+      leaders = res.data.leader_pitching_repeater.leader_pitching_mux.queryResults.row;
+      let dataArray = [];
+      // console.log(leaders);
+      for (let players in leaders) {
+        let player = leaders[players];
         console.log(player)
-        // console.log(`${player.name_display_first_last} hit ${player.hr} homeruns off ${player.h} hits, ${player.rbi} RBI's, in ${player.ab} ABs. Averaging ${player.avg}/${player.obp}/${player.slg}/${player.ops}.`)
+        let data = {
+          name: player.name_display_first_last,
+          sort_column: player[sort_column],
+          era: player.era,
+          whip: player.whip,
+          strikeouts: player.so,
+          walks: player.bb,
+          k_bb: player.k_bb,
+          wins: player.w,
+          loses: player.l,
+          games: player.g,
+          hits: player.h,
+          home_runs: player.hr,
+          runs: player.r,
+        }
+        dataArray.push(data);
       }
+      // console.log(dataArray)
+      callback(dataArray)
     })
     .catch(err => {
       console.log(err);

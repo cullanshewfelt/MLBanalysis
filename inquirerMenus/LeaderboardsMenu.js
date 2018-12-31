@@ -20,7 +20,7 @@ const leaderboardsPrompt = () => {
           hittingLeadersPrompt();
           break;
         case 'Pitching Leaderboards':
-          // leaderboards.hittingLeaders();
+          pitchingLeadersPrompt();
           break;
         case 'Main Menu':
           menu.menu();
@@ -79,7 +79,8 @@ const pitchingLeadersPrompt = () => {
         type: 'list',
         name: 'sort_column',
         message: 'What Stat Would You Like To Sort By?',
-        choices: ['Home Runs', 'Batting Average', 'Hits']      },
+        choices: ['Earned Run Average', 'Walks and Hits Per Innings Pitched', 'Strikeouts', 'Walks', 'Strikeout/Walk Ratio']
+      },
       {
         type: 'input',
         name: 'results',
