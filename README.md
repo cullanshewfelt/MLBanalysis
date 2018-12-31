@@ -32,9 +32,9 @@ Just install required npm dependencies
 -   The only arguments it can accept right now are players names and active status.
 
 ### [Options](#options)
-**player** is an optional argument (not case sensitive). Full names will always yield a result. Only one player will be returned, thus last names aren't the best query, as many players share the same last name. 
-**-active_status** is and optional argument and takes one of two options:
 
+- **player** is an optional argument (not case sensitive). Full names will always yield a result. Only one player will be returned, thus last names aren't the best query, as many players share the same last name.
+- **-active_status** is and optional argument and takes one of two options:
 -   **-a** will return results for an **active** player. This is the default value if left blank.
 -   **-i** will return results for an **inactive** player
 
