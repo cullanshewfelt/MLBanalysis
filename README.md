@@ -37,7 +37,7 @@ Just install required npm dependencies
 **-active** takes two arguments:
 
 -   **-a** will return results for an **active** player. This is the default value if left blank.
--   **-a** will return results for an **inactive** player
+-   **-i** will return results for an **inactive** player
 
 ### [Examples](#examples)
 
