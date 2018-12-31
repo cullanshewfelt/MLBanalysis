@@ -25,7 +25,7 @@ Just install required npm dependencies
 
 ## [Running the Program](#runningtheprogram)
 
-    node mlb.js [player] [-active status]
+    node mlb.js [player] [-active_status]
 
 -   You can run **`mlb.js`** with or without arguments.
 -   Running without arguments will bring you to the home screen.
@@ -34,7 +34,7 @@ Just install required npm dependencies
 
 ### [Options](#options)
 
-**-active** takes two arguments:
+**-active_status** takes two arguments:
 
 -   **-a** will return results for an **active** player. This is the default value if left blank.
 -   **-i** will return results for an **inactive** player
