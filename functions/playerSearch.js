@@ -34,7 +34,6 @@ const playerLookup = (player_id, callback) => {
   axios.get(link)
     .then(res =>{
       player = res.data.player_info.queryResults.row;
-      console.log('38', player)
       let data = dataParse(player);
       callback(data)
     })
@@ -80,6 +79,7 @@ const playerTeams = (player_id, season, callback) => {
         }
         dataArray.push(data);
       }
+      // console.log(dataArray)
       callback(dataArray);
     })
     .catch(err =>{

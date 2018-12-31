@@ -105,6 +105,7 @@ const playerTeamsPrompt = (currentMenu) => {
       playerSearch.playerTeams(query.id, query.season, data => {
         let modifyer = query.season ? `in ${query.season} ` : 'Throughout Career '
         playerSearch.playerLookup(query.id, player => {
+          // console.log(data)
           console.log('*********************************************************************************************************')
           console.log(`*********************************** ${player.name}'s Teams ${modifyer}****************************************`)
           console.log('*********************************************************************************************************')

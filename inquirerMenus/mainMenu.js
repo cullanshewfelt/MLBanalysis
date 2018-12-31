@@ -11,24 +11,15 @@ const subMenu = require('./subMenu.js');
 const tools = require('./menuTools.js');
 let status = '';
 
-const argument = !process.argv[3] ? process.argv[2] : process.argv[3][0]==='-' ? process.argv[2] : `${process.argv[2]} ${process.argv[3]}`
+let argument;
 
 //****************************************************************************************************
 // Visit ./functions/ to see logic & API endpoints
 //----------------------------------------------------------------------------------------------------
-// rosterSearch.listTeams(season, allStar);
-// rosterSearch.fortyManRoster(team_id);
-// rosterSearch.rosterBySeason(team_id, start, ed);
-//----------------------------------------------------------------------------------------------------
-// playerSearch.playerSearch(name, active);
-// playerSearch.playerLookup(player_id);
-// playerSearch.playerTeams(player_id, season);
 //----------------------------------------------------------------------------------------------------
 // projectedStats.projectedHittingStats(player_id, season);
 // projectedStats.projectedPitchingStats(player_id, season);
 //----------------------------------------------------------------------------------------------------
-// seasonStats.seasonHittingStats(player_id, season, game_type);
-// seasonStats.seasonPitchingStats(player_id, season, game_type);
 //----------------------------------------------------------------------------------------------------
 // leagueStats.leagueHittingStats(player_id, game_type);
 // leagueStats.leaguePitchingStats(player_id, game_type);
@@ -69,17 +60,21 @@ module.exports.menu = menu;
 //****************************************************************************************************
 // ARGUMENTS LOGIC
 //****************************************************************************************************
-//
+
+// checks to see if if the user passed options as arguments and formats the name passed as the argument
+argument = !process.argv[3] ? process.argv[2] : process.argv[3][0]==='-' ? process.argv[2] : `${process.argv[2]} ${process.argv[3]}`
+
 //----------------------------------------------------------------------------------------------------
 
-const argumentsLogic = (args) => {
+// checks see if the user wanted to search for active or inactive players
+const validateStatus = (args) => {
   switch(args.length){
     case 3:
     return 'Y'
     case 4:
-    return args[3]==='-a' ? 'Y' : args[3]==='-i' ? 'N' : 'Y';
+    return args[3] === '-a' ? 'Y' : args[3] === '-i' ? 'N' : 'Y';
     case 5:
-    return args[3]==='-a' ? 'Y' : args[3]==='-i' ? 'N' : 'Y';
+    return args[4]==='-a' ? 'Y' : args[4]==='-i' ? 'N' : 'Y';
   }
 }
 
@@ -87,8 +82,6 @@ const argumentsLogic = (args) => {
 // INITIALIZE ARGUMENTS LOGIC
 //****************************************************************************************************
 
-status = argumentsLogic(process.argv)
-
-
+status = validateStatus(process.argv)
 
 //----------------------------------------------------------------------------------------------------

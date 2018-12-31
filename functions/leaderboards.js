@@ -2,25 +2,7 @@ const axios = require('axios');
 //****************************************************************************************************
 // FUNCTIONS FOR LEADERBOARD STATISTICS/PLAYERS
 //****************************************************************************************************
-// hittingLeaders returns data regarding the hitting leaderboards for that season
-//****************************************************************************************************
-// results is a required INTERGER, specifying the number of results to return;
-// season is also a required parameter;
-// game_type is a required parameter;
-// sort_column is a required parameter, specifying which stat to sort by: 'ab', 'hr', etc.
-//****************************************************************************************************
-// GAME TYPES:
-//----------------------------------------------------------------------------------------------------
-// 'R' - Regular Season
-// 'S' - Spring Training
-// 'E' - Exhibition
-// 'A' - All Star Game
-// 'D' - Division Series
-// 'F' - First Round (Wild Card)
-// 'L' - League Championship
-// 'W' - World Series
-//****************************************************************************************************
-// SORT COLUMNS
+// SORT COLUMNS FOR HITTERS
 //----------------------------------------------------------------------------------------------------
 // 'gidp' -- ground into double play
 // 'sac' -- sacrifice hits and bunts
@@ -75,12 +57,13 @@ const axios = require('axios');
 // 'ab' -- at bats
 // 'name_last' -- player's last name
 //****************************************************************************************************
-// let results = 20;
-// let game_type = 'R';
-// let season = '2018';
-// let sort_column = 'hr';
-// let leader_hitting_repeater;
-
+// hittingLeaders returns data regarding the hitting leaderboards for that season
+//****************************************************************************************************
+// results is a required INTERGER, specifying the number of results to return;
+// season is also a required STRING;
+// game_type is a required STRING;
+// sort_column is a required STRING, specifying which stat to sort by: 'ab', 'hr' etc.
+//****************************************************************************************************
 const hittingLeaders = (results, game_type, season, sort_column, callback) => {
   let leader_hitting_repeater;
   let link = leader_hitting_repeater ?
@@ -120,14 +103,7 @@ module.exports.hittingLeaders = hittingLeaders;
 
 // hittingLeaders(results, game_type, season, sort_column, leader_hitting_repeater);
 //****************************************************************************************************
-// pitchingLeaders returns data regarding the hitting leaderboards for a specific season
-//****************************************************************************************************
-// results is a required INTERGER, specifying the number of results to return;
-// season is also a required parameter;
-// game_type is a required parameter;
-// sort_column is a required parameter, specifying which stat to sort by: 'era', 'so', etc.
-//----------------------------------------------------------------------------------------------------
-// SORT COLUMNS
+// SORT COLUMNS FOR PITCHERS
 //----------------------------------------------------------------------------------------------------
 // 'gidp' -- ground into double play
 // 'np' -- total number of pitches
@@ -196,7 +172,13 @@ module.exports.hittingLeaders = hittingLeaders;
 // 'name_last' -- last name
 // 'er' -- total earned runs
 //****************************************************************************************************
-
+// pitchingLeaders returns data regarding the hitting leaderboards for a specific season
+//****************************************************************************************************
+// results is a required INTERGER, specifying the number of results to return;
+// season is also a required parameter;
+// game_type is a required parameter;
+// sort_column is a required parameter, specifying which stat to sort by: 'era', 'so', etc.
+//----------------------------------------------------------------------------------------------------
 const pitchingLeaders = (results, game_type, season, sort_column, callback) => {
   let leader_pitching_repeater;
   let link = leader_pitching_repeater ?
