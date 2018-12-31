@@ -15,13 +15,24 @@ npm install
 ### Running the Program
 
 ```
-node mlb.js [player]
+node mlb.js [player] [-active]
 ```
 
 You can run mlb.js with or without arguments.
 Running without arguments will bring you to the home screen.
+
 The only arguments it can accept right now are players names (not case sensitive).
-Full names will always yield a result.
+Full names will always yield a result. Last names will not yield multiple results.  
+
+-active takes two parameters:
+* -a will return results for an active player. This is the default value if left blank.
+* -a will return results for an inactive player
+
+Examples:
+```
+node mlb.js bellinger -a
+node mlb.js babe ruth -i
+```
 
 ## Built With
 
