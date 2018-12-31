@@ -1,12 +1,12 @@
 {
   "name": "mlb_app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Cullan Shewfelt",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",

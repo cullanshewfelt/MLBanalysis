@@ -1,55 +1,62 @@
 # MLBanalysis2.0
+
 An small CLI app to retrieve MLB statistics and data.
 
-## Getting Started
+## Table of Contents
+
+1.  [Documentation](#documentation)
+    1.  [Installation](#installation)
+    2.  [Running the Program](#runningtheprogram)
+    3.  [Options](#options)
+    4.  [Examples](#examples)
+2.  [Built With](#builtwith)
+3.  [Contributors](#contributors)
+4.  [License](#license)
+
+## [Documentation](#documentation)
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### [Installation](#installation)
 
 Just install required npm dependencies
 
-```
-npm install
-```
-### Running the Program
+    npm install
 
-```
-node mlb.js [player] [-active]
-```
+## [Running the Program](#runningtheprogram)
 
-You can run mlb.js with or without arguments.
-Running without arguments will bring you to the home screen.
+    node mlb.js [player] [-active]
 
-The only arguments it can accept right now are players names (not case sensitive).
-Full names will always yield a result. Last names will not yield multiple results.  
+-   You can run mlb.js with or without arguments.
+-   Running without arguments will bring you to the home screen.
 
--active takes two parameters:
-* -a will return results for an active player. This is the default value if left blank.
-* -a will return results for an inactive player
+-   The only arguments it can accept right now are players names (not case sensitive).
+-   Full names will always yield a result. Last names will not yield multiple results.  
 
-Examples:
-```
-node mlb.js bellinger -a
-node mlb.js babe ruth -i
-```
+### [Options](#options)
 
-## Built With
+\-active takes two parameters:
 
-* [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js, used to handle HTTP GET/POST requests
-* [inquirer.js](https://github.com/SBoudrias/Inquirer.js/) - Interactive Command Line User Interface
-* [columnify.js](https://github.com/timoxley/columnify) - Create text-based columns suitable for console output
-* [moment.js](https://github.com/moment/moment) - Parse, validate, manipulate, and display dates in javascript.
+-   \-a will return results for an active player. This is the default value if left blank.
+-   \-a will return results for an inactive player
 
-* **Cullan Shewfelt** - *Initial work* - [Cullan Shewfelt](https://github.com/cullanshewfelt)
+### [Examples](#examples)
 
+    node mlb.js bellinger -a
 
-## License
+    node mlb.js babe ruth -i
+
+## [Built With](#builtwith)
+
+-   [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js, used to handle HTTP GET/POST requests
+-   [inquirer.js](https://github.com/SBoudrias/Inquirer.js/) - Interactive Command Line User Interface
+-   [columnify.js](https://github.com/timoxley/columnify) - Create text-based columns suitable for console output
+-   [moment.js](https://github.com/moment/moment) - Parse, validate, manipulate, and display dates in javascript.
+
+## [Contributors](#contributors)
+
+-   **Cullan Shewfelt** - _Initial work_ - [Cullan Shewfelt](https://github.com/cullanshewfelt)
+
+## [License](#license)
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
