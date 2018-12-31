@@ -9,8 +9,9 @@ const columnify = require('columnify');
 
 const subMenu = require('./subMenu.js');
 const tools = require('./menuTools.js');
+let status = '';
 
-const argument = !process.argv[3] ? process.argv[2] : `${process.argv[2]} ${process.argv[3]}`;
+const argument = !process.argv[3] ? process.argv[2] : process.argv[3][0]==='-' ? process.argv[2] : `${process.argv[2]} ${process.argv[3]}`
 
 //****************************************************************************************************
 // Visit ./functions/ to see logic & API endpoints
@@ -47,7 +48,7 @@ const argument = !process.argv[3] ? process.argv[2] : `${process.argv[2]} ${proc
 // MAIN MENU
 //----------------------------------------------------------------------------------------------------
 const menu = () => {
-  !argument ? 
+  !argument ?
     inquirer.prompt([
     {
       type: 'input',
@@ -56,32 +57,38 @@ const menu = () => {
     }]).then(answer => {
       console.log('\033[2J');
       let name = argument || answer.menu;
-      console.log(name)
       answer.menu === '' ? subMenu.subMenu() :
         answer.menu.toLowerCase().trim() === 'menu' ? subMenu.subMenu() :
         tools.quickNameLookup(name);
     })
-   :   tools.quickNameLookup(argument);
+   :   tools.quickNameLookup(argument, status);
 }
 
 module.exports.menu = menu;
 
+//****************************************************************************************************
+// ARGUMENTS LOGIC
+//****************************************************************************************************
+//
 //----------------------------------------------------------------------------------------------------
 
-const searchAgain = (currentMenu) => {
-  console.log('\033[2J');
-  inquirer
-    .prompt([{
-      type: 'list',
-      name: 'searchAgain',
-      message: 'What would you like to do?',
-      choices: ['']
-    }]).then(submenu => {
-
-    })
-};
-
+const argumentsLogic = (args) => {
+  switch(args.length){
+    case 3:
+    return 'Y'
+    case 4:
+    return args[3]==='-a' ? 'Y' : args[3]==='-i' ? 'N' : 'Y';
+    case 5:
+    return args[3]==='-a' ? 'Y' : args[3]==='-i' ? 'N' : 'Y';
+  }
+}
 
 //****************************************************************************************************
-// INITIALIZE
+// INITIALIZE ARGUMENTS LOGIC
 //****************************************************************************************************
+
+status = argumentsLogic(process.argv)
+
+
+
+//----------------------------------------------------------------------------------------------------

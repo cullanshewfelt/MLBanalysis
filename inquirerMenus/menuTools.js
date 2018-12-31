@@ -19,8 +19,8 @@ const quickColumn = (data) => {
 module.exports.quickColumn = quickColumn;
 //----------------------------------------------------------------------------------------------------
 
-const quickNameLookup = (name) => {
-  playerSearch.playerSearch(name, 'Y', player => {
+const quickNameLookup = (name, status) => {
+  playerSearch.playerSearch(name, status || 'Y', player => {
     let columns = quickColumn(player);
     console.log('***********************************')
     console.log(`******* ${player.name} Info **********`)

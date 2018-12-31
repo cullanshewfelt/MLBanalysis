@@ -9,7 +9,7 @@ const columnify = require('columnify');
 // Can search active and inactive players (an optional parameter).
 //****************************************************************************************************
 const playerSearch = (name, active, callback) => {
-  console.log('\033[2J');
+  // console.log('\033[2J');
   let link = active
   ? `http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='${active}'&name_part='${name}%25'`
   : `http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${name}%25'`;
@@ -34,6 +34,7 @@ const playerLookup = (player_id, callback) => {
   axios.get(link)
     .then(res =>{
       player = res.data.player_info.queryResults.row;
+      console.log('38', player)
       let data = dataParse(player);
       callback(data)
     })
