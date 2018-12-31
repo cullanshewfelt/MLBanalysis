@@ -54,7 +54,8 @@ const seasonHittingPrompt = (currentMenu) => {
         type: 'list',
         name: 'game_type',
         message: 'Choose the game type you want stats for',
-        choices: ['Regular Season -R', 'World Series -W', 'League Championship -L', 'First Round (Wild Card) -F', 'Division Series -D', 'Spring Training -S']
+        choices: ['Regular Season', 'World Series', 'League Championship', 'First Round (Wild Card)', 'Division Series', 'Spring Training'],
+        filter: tools.gameTypeFilter
       }
     ]).then(answer => {
       seasonStats.seasonHittingStats(answer.id, answer.season, answer.game_type, stats => {
@@ -85,7 +86,8 @@ const seasonPitchingPrompt = (currentMenu) => {
         type: 'list',
         name: 'game_type',
         message: 'Choose the game type you want stats for',
-        choices: ['Regular Season -R', 'World Series -W', 'League Championship -L', 'First Round (Wild Card) -F', 'Division Series -D', 'Spring Training -S']
+        choices: ['Regular Season', 'World Series', 'League Championship', 'First Round (Wild Card)', 'Division Series', 'Spring Training'],
+        filter: tools.gameTypeFilter
       }
     ]).then(answer => {
       seasonStats.seasonPitchingStats(answer.id, answer.season, answer.game_type, stats => {
@@ -99,12 +101,12 @@ module.exports.seasonPitchingPrompt = seasonHittingPrompt;
 //----------------------------------------------------------------------------------------------------
 
 const dataParse = (player_id, stats, season) => {
-    playerSearch.playerLookup(player_id, data => {
-      let columns = tools.quickColumn(stats)
-      console.log('****************************************************')
-      console.log(`****** ${data.name}'s Statistics for ${season} ******`)
-      console.log('****************************************************')
-      console.log(columns);
+  playerSearch.playerLookup(player_id, data => {
+    let columns = tools.quickColumn(stats)
+    console.log('****************************************************')
+    console.log(`****** ${data.name}'s Statistics for ${season} ******`)
+    console.log('****************************************************')
+    console.log(columns);
   });
 };
 

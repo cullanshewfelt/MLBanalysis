@@ -38,13 +38,15 @@ const quickStatsLookup = (player) => {
     .prompt([{
         type: 'input',
         name: 'season',
-        message: 'Enter the year (format: YYYY) of the season you want stats for'
+        message: 'Enter the year (format: YYYY) of the season you want stats for',
+        validate: validateYear
       },
       {
         type: 'list',
         name: 'game_type',
         message: 'Choose the game type you want stats for',
-        choices: ['Regular Season -R', 'World Series -W', 'League Championship -L', 'First Round (Wild Card) -F', 'Division Series -D', 'Spring Training -S']
+        choices: ['Regular Season', 'World Series', 'League Championship', 'First Round (Wild Card)', 'Division Series', 'Spring Training'],
+        filter: gameTypeFilter
       }
     ]).then(answer => {
       player.position === 'P'
@@ -93,13 +95,37 @@ module.exports.quickPlayerStats = quickPlayerStats;
 
 const validateYear = (year) => {
   const reg = /^\d{4,4}\b/;
-  return reg.test(year) ? reg.test(year) : "Please Enter a Valid Year (Format: YYYY)."
+  return reg.test(year) || "Please Enter a Valid Year (Format: YYYY)."
 }
 
 module.exports.validateYear = validateYear;
 
 //----------------------------------------------------------------------------------------------------
 
+const validateResults = (results) => {
+  const reg = /^\d+\b/;
+  return reg.test(results) || 'Please Enter a Number'
+}
+module.exports.validateResults = validateResults;
 
+//----------------------------------------------------------------------------------------------------
+
+function gameTypeFilter(type) {
+  switch (type) {
+    case 'Regular Season':
+    return 'R'
+    case 'World Series':
+    return 'W'
+    case 'League Championship':
+    return 'L'
+    case 'First Round (Wild Card)':
+    return 'F'
+    case 'Division Series':
+    return 'D'
+    case 'Spring Training':
+    return 'S'
+  }
+}
+module.exports.gameTypeFilter = gameTypeFilter;
 
 //----------------------------------------------------------------------------------------------------

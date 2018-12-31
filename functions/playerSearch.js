@@ -89,13 +89,15 @@ const playerTeams = (player_id, season, callback) => {
 //****************************************************************************************************
 const dataParse = (player) => {
   let birthplace = player.birth_state ? `${player.birth_city}, ${player.birth_state}` : `${player.birth_city}, ${player.birth_country}`
+  let position = player.position || player.primary_position_txt;
+  let team = player.team_full || player.team_name;
   let data = {
     name: player.name_display_first_last,
     player_id: player.player_id,
     height: `${player.height_feet}'${player.height_inches}"`,
     weight: player.weight,
-    position: player.position,
-    team: player.team_full,
+    position: position,
+    team: team,
     team_id: player.team_id,
     throws: ` ${player.throws} `,
     bats: ` ${player.bats} `,

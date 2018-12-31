@@ -73,8 +73,7 @@ const axios = require('axios');
 // seasonHittingStats returns a players hitting statistics given a player_id, season (year), and game_type
 //********************************************************************************************************
 const seasonHittingStats = (player_id, season, game_type, callback) => {
-  let gameType = game_type.split('-')[1];
-  let link = `http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='${gameType}'&season='${season}'&player_id='${player_id}'`;
+  let link = `http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='${game_type}'&season='${season}'&player_id='${player_id}'`;
   let stats;
   axios.get(link)
     .then(res =>{
@@ -102,8 +101,7 @@ const seasonHittingStats = (player_id, season, game_type, callback) => {
 // seasonPitchingStats returns pitching statistics given a player_id, season (year), and game_type
 //****************************************************************************************************
 const seasonPitchingStats = (player_id, season, game_type, callback) => {
-  let gameType = game_type.split('-')[1];
-  let link = `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='${gameType}'&season='${season}'&player_id='${player_id}'`;
+  let link = `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='${game_type}'&season='${season}'&player_id='${player_id}'`;
   let stats;
   axios.get(link)
     .then(res =>{

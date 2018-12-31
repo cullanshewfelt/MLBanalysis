@@ -10,6 +10,8 @@ const columnify = require('columnify');
 const subMenu = require('./subMenu.js');
 const tools = require('./menuTools.js');
 
+const argument = !process.argv[3] ? process.argv[2] : `${process.argv[2]} ${process.argv[3]}`;
+
 //****************************************************************************************************
 // Visit ./functions/ to see logic & API endpoints
 //----------------------------------------------------------------------------------------------------
@@ -45,17 +47,21 @@ const tools = require('./menuTools.js');
 // MAIN MENU
 //----------------------------------------------------------------------------------------------------
 const menu = () => {
-  inquirer
-    .prompt([{
+  !argument ? 
+    inquirer.prompt([
+    {
       type: 'input',
       name: 'menu',
       message: "Type 'Menu' or hit enter to see the menu. Type in a player's name to search for a player."
     }]).then(answer => {
       console.log('\033[2J');
+      let name = argument || answer.menu;
+      console.log(name)
       answer.menu === '' ? subMenu.subMenu() :
         answer.menu.toLowerCase().trim() === 'menu' ? subMenu.subMenu() :
-        tools.quickNameLookup(answer.menu);
-    });
+        tools.quickNameLookup(name);
+    })
+   :   tools.quickNameLookup(argument);
 }
 
 module.exports.menu = menu;

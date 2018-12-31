@@ -57,7 +57,6 @@ const searchByIdPrompt = (currentMenu) => {
       message: 'Search For A Player By ID'
     }]).then(query => {
       playerSearch.playerLookup(query.id, data => {
-
         let columns = tools.quickColumn(data);
         console.log(columns)
         showStatsPrompt(data);
@@ -97,7 +96,7 @@ const playerTeamsPrompt = (currentMenu) => {
     }, {
       type: 'input',
       name: 'season',
-      message: 'OPTIONAL: Enter A Season (Year Format: YYYY). Will return all teams throughout career if left blank.',
+      message: 'OPTIONAL: Enter A Season (Year Format: YYYY). Or Leave Blank/Press ENTER to See All Team\'s Throughout Career.',
       validate: function validateYear(year){
         const reg = /^\d{4,4}\b/;
         return reg.test(year) ? reg.test(year) : year === '' ? true : "Please Enter a Valid Year (Format: YYYY) or Leave Blank to See All Team's Throughout Career."
