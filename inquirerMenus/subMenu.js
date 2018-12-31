@@ -5,6 +5,7 @@ const rosterMenu = require('./rosterMenu.js');
 const playerSearchMenu = require('./playerSearchMenu.js');
 const statisticsMenu = require('./statisticsMenu.js');
 const reportsMenu = require('./reportsMenu.js');
+const leaderboardsMenu = require('./leaderboardsMenu.js');
 
 const projectedStats = require('../functions/projectedStats.js');
 const seasonStats = require('../functions/seasonStats.js');
@@ -37,6 +38,7 @@ const subMenu = () => {
           break;
         case 'Leaderboards':
           leaderboardsMenu.leaderboardsPrompt();
+          break;
         case 'Back':
           menu.menu();
           break;

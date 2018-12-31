@@ -8,7 +8,7 @@ const menu = require('./mainMenu.js');
 //----------------------------------------------------------------------------------------------------
 // ROSTER/TEAM SEARCH MENUS
 //----------------------------------------------------------------------------------------------------
-const rosterSearchPrompt = (currentMenu) => {
+const rosterSearchPrompt = () => {
   // console.log('\033[2J');
   inquirer
     .prompt([{
@@ -20,15 +20,15 @@ const rosterSearchPrompt = (currentMenu) => {
       switch (submenu.rosterSearch) {
         case '40 Man Roster':
           console.log('\033[2J');
-          fortyManRoster(currentMenu);
+          fortyManRoster();
           break;
         case 'List Teams':
           console.log('\033[2J');
-          listTeams(currentMenu);
+          listTeams();
           break;
         case 'Roster By Season':
           console.log('\033[2J');
-          rosterBySeason(currentMenu);
+          rosterBySeason();
           break;
         case 'Main Menu':
           menu.menu();
@@ -39,7 +39,7 @@ const rosterSearchPrompt = (currentMenu) => {
 
 //----------------------------------------------------------------------------------------------------
 
-const fortyManRoster = (currentMenu) => {
+const fortyManRoster = () => {
   // console.log('\033[2J');
   inquirer
     .prompt([{
@@ -54,14 +54,14 @@ const fortyManRoster = (currentMenu) => {
         console.log(`************************************************************** ${data[0].team} 40 Man Roster ***************************************************************`)
         console.log('****************************************************************************************************************************************************************')
         console.log(columns);
-        playerSearchMenu.searchByIdPrompt(currentMenu);
+        playerSearchMenu.searchByIdPrompt();
       });
     });
 };
 
 //----------------------------------------------------------------------------------------------------
 
-const listTeams = (currentMenu) => {
+const listTeams = () => {
   console.log('\033[2J');
   inquirer
     .prompt([{
@@ -76,14 +76,14 @@ const listTeams = (currentMenu) => {
         console.log(`************************************************************************* ${answer.year} MLB Teams ***************************************************************************`)
         console.log('****************************************************************************************************************************************************************')
         console.log(columns);
-        fortyManRoster(currentMenu);
+        fortyManRoster();
       });
     });
 };
 
 //----------------------------------------------------------------------------------------------------
 
-const rosterBySeason = (currentMenu) => {
+const rosterBySeason = () => {
   console.log('\033[2J');
   inquirer
     .prompt([{
@@ -108,7 +108,7 @@ const rosterBySeason = (currentMenu) => {
           console.log(`***************************************** ${roster[0].team}'s Roster ***************************************`)
           console.log('**************************************************************************************************************')
           console.log(columns);
-          searchByIdPrompt(currentMenu);
+          searchByIdPrompt();
         })
       });
     });

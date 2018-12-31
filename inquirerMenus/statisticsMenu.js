@@ -9,7 +9,7 @@ const playerSearchMenu = require('./playerSearchMenu.js');
 // PLAYER STATISTICS MENUS
 //----------------------------------------------------------------------------------------------------
 
-const statsSearchPrompt = (currentMenu) => {
+const statsSearchPrompt = () => {
   // console.log('\033[2J');
   inquirer
     .prompt([{
@@ -36,7 +36,8 @@ const statsSearchPrompt = (currentMenu) => {
 module.exports.statsSearchPrompt = statsSearchPrompt;
 //----------------------------------------------------------------------------------------------------
 
-const seasonHittingPrompt = (currentMenu) => {
+const seasonHittingPrompt = () => {
+  let currentMenu = 'Hitting';
   // console.log('\033[2J');
   inquirer
     .prompt([{
@@ -59,7 +60,7 @@ const seasonHittingPrompt = (currentMenu) => {
       }
     ]).then(answer => {
       seasonStats.seasonHittingStats(answer.id, answer.season, answer.game_type, stats => {
-        dataParse(answer.id, stats, answer.season);
+        tools.quickPlayerStats(answer.id, stats, answer.season, currentMenu);
       });
     });
 };
@@ -68,7 +69,8 @@ module.exports.seasonHittingPrompt = seasonHittingPrompt;
 
 //----------------------------------------------------------------------------------------------------
 
-const seasonPitchingPrompt = (currentMenu) => {
+const seasonPitchingPrompt = () => {
+  let currentMenu = 'Pitching';
   // console.log('\033[2J');
   inquirer
     .prompt([{
@@ -91,23 +93,11 @@ const seasonPitchingPrompt = (currentMenu) => {
       }
     ]).then(answer => {
       seasonStats.seasonPitchingStats(answer.id, answer.season, answer.game_type, stats => {
-        dataParse(answer.id, stats, answer.season);
+        tools.quickPlayerStats(answer.id, stats, answer.season, currentMenu);
       });
     });
 };
 
 module.exports.seasonPitchingPrompt = seasonHittingPrompt;
-
-//----------------------------------------------------------------------------------------------------
-
-const dataParse = (player_id, stats, season) => {
-  playerSearch.playerLookup(player_id, data => {
-    let columns = tools.quickColumn(stats)
-    console.log('****************************************************')
-    console.log(`****** ${data.name}'s Statistics for ${season} ******`)
-    console.log('****************************************************')
-    console.log(columns);
-  });
-};
 
 //----------------------------------------------------------------------------------------------------

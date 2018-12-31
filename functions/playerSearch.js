@@ -107,7 +107,6 @@ const dataParse = (player) => {
   return data;
 }
 
-
 //****************************************************************************************************
 
 module.exports.playerSearch = playerSearch;

@@ -61,7 +61,7 @@ module.exports.quickStatsLookup = quickStatsLookup;
 
 const quickHittingLookup = (answer, player_id) => {
   seasonStats.seasonHittingStats(player_id, answer.season, answer.game_type, stats => {
-    quickPlayerStats(player_id, stats);
+    quickPlayerStats(player_id, stats, answer.season);
   });
 }
 
@@ -71,7 +71,7 @@ module.exports.quickHittingLookup = quickHittingLookup;
 
 const quickPitchingLookup = (answer, player_id) => {
   seasonStats.seasonPitchingStats(player_id, answer.season, answer.game_type, stats => {
-    quickPlayerStats(player_id, stats);
+    quickPlayerStats(player_id, stats, answer.season);
   });
 }
 
@@ -79,12 +79,14 @@ module.exports.quickPitchingLookup = quickPitchingLookup;
 
 //----------------------------------------------------------------------------------------------------
 
-const quickPlayerStats = (player_id, stats) => {
+const quickPlayerStats = (player_id, stats, season, currentMenu) => {
   playerSearch.playerLookup(player_id, data => {
+    currentMenu = currentMenu ? currentMenu : data.position === 'P' ? 'Pitching' : 'Hitting'
+    let position = data.position === 'P' ? 'Pitching' : 'Hitting'
     let columns = quickColumn(stats)
-    console.log('******************************************************************')
-    console.log(`******************* ${data.name}'s Statistics *********************`)
-    console.log('******************************************************************')
+    console.log('****************************************************************')
+    console.log(`****** ${data.name}'s ${currentMenu} Statistics for ${season} ******`)
+    console.log('****************************************************************')
     console.log(columns);
   });
 }
@@ -110,8 +112,8 @@ module.exports.validateResults = validateResults;
 
 //----------------------------------------------------------------------------------------------------
 
-function gameTypeFilter(type) {
-  switch (type) {
+const gameTypeFilter = (game_type) => {
+  switch (game_type) {
     case 'Regular Season':
     return 'R'
     case 'World Series':
@@ -126,6 +128,30 @@ function gameTypeFilter(type) {
     return 'S'
   }
 }
+
 module.exports.gameTypeFilter = gameTypeFilter;
+//----------------------------------------------------------------------------------------------------
+
+const sortColumnFilter = (sort_column) => {
+  switch(sort_column){
+    case 'Home Runs':
+    return 'hr'
+    case 'Batting Average':
+    return 'avg'
+    case 'Hits':
+    return 'h'
+    case 'First Round (Wild Card)':
+    return 'F'
+    case 'Division Series':
+    return 'D'
+    case 'Spring Training':
+    return 'S'
+  }
+}
+
+module.exports.sortColumnFilter = sortColumnFilter;
+
+//----------------------------------------------------------------------------------------------------
+
 
 //----------------------------------------------------------------------------------------------------
