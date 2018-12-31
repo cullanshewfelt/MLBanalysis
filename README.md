@@ -27,17 +27,17 @@ Just install required npm dependencies
 
     node mlb.js [player] [-active status]
 
--   You can run mlb.js with or without arguments.
+-   You can run **`mlb.js`** with or without arguments.
 -   Running without arguments will bring you to the home screen.
 -   The only arguments it can accept right now are players names (not case sensitive) and active status.
 -   Full names will always yield a result. Last names will not yield multiple results.  
 
 ### [Options](#options)
 
-\-active takes two arguments:
+**-active** takes two arguments:
 
--   \-a will return results for an active player. This is the default value if left blank.
--   \-a will return results for an inactive player
+-   **-a** will return results for an **active** player. This is the default value if left blank.
+-   **-a** will return results for an **inactive** player
 
 ### [Examples](#examples)
 
