@@ -77,7 +77,7 @@ const hittingLeaders = (results, game_type, season, sort_column, callback) => {
       // console.log(leaders);
       for (let players in leaders) {
         let player = leaders[players];
-        console.log(player)
+        // console.log(80, player)
         let data = {
           name: player.name_display_first_last,
           sort_column: player[sort_column],
@@ -91,11 +91,11 @@ const hittingLeaders = (results, game_type, season, sort_column, callback) => {
         }
         dataArray.push(data);
       }
-      console.log(dataArray)
+      // console.log(94, dataArray)
       callback(dataArray)
     })
     .catch(err => {
-      console.log(err);
+      console.log(98, err);
     });
 };
 
@@ -192,7 +192,7 @@ const pitchingLeaders = (results, game_type, season, sort_column, callback) => {
       // console.log(leaders);
       for (let players in leaders) {
         let player = leaders[players];
-        console.log(player)
+        // console.log(195, player)
         let data = {
           name: player.name_display_first_last,
           sort_column: player[sort_column],
@@ -210,11 +210,11 @@ const pitchingLeaders = (results, game_type, season, sort_column, callback) => {
         }
         dataArray.push(data);
       }
-      // console.log(dataArray)
+      // console.log(213, dataArray)
       callback(dataArray)
     })
     .catch(err => {
-      console.log(err);
+      console.log(217, err);
     });
 };
 

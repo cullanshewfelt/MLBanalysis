@@ -38,27 +38,39 @@ let status = '';
 // MAIN MENU
 //----------------------------------------------------------------------------------------------------
 const menu = (argument) => {
+  // console.log(argument)
   let cliArg;
-  if (argument === undefined) {
-    inquirer.prompt([{
-      type: 'input',
-      name: 'menu',
-      message: "Type 'Menu' or hit enter to see the menu. Type in a player's name to search for a player."
-    }]).then(answer => {
-      let name = answer.menu;
-      answer.menu === '' ? subMenu.subMenu() :
-        answer.menu.toLowerCase().trim() === 'menu' ? subMenu.subMenu() :
-        tools.quickNameLookup(name);
-    })
+  if (argument) {
+    if (argument.length > 0 && argument.length < 3) {
+      mainMenuPrompt();
+    } else {
+      cliArg = !argument[3] ? argument[2] : argument[3][0] === '-' ? argument[2] : `${argument[2]} ${argument[3]}`
+      status = validateStatus(argument)
+      tools.quickNameLookup(cliArg, status);
+    }
   } else {
-    let cliArg = !argument[3] ? argument[2] : argument[3][0] === '-' ? argument[2] : `${argument[2]} ${argument[3]}`
-    status = validateStatus(argument)
-    tools.quickNameLookup(cliArg, status);
+    mainMenuPrompt();
   }
 }
 
 module.exports.menu = menu;
 
+//----------------------------------------------------------------------------------------------------
+
+const mainMenuPrompt = () => {
+  inquirer.prompt([{
+    type: 'input',
+    name: 'menu',
+    message: "Type 'Menu' or hit enter to see the menu. Type in a player's name to search for a player."
+  }]).then(answer => {
+    let name = answer.menu;
+    answer.menu === '' ? subMenu.subMenu() :
+      answer.menu.toLowerCase().trim() === 'menu' ? subMenu.subMenu() :
+      tools.quickNameLookup(name);
+  })
+}
+
+module.exports.mainMenuPrompt = mainMenuPrompt;
 //****************************************************************************************************
 // ARGUMENTS LOGIC
 //****************************************************************************************************
