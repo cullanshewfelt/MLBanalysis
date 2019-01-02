@@ -37,7 +37,7 @@ Just install required npm dependencies
 
 **-active_status** is an optional argument and takes one of two options:
 
--   **-a** will return results for an **active** player. This is the default value if left blank.
+-   **-a** will return results for an **active** player. *This is the default value __if left blank.__*
 -   **-i** will return results for an **inactive** player
 
 ### [Examples](#examples)
