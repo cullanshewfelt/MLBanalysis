@@ -10,8 +10,7 @@ const columnify = require('columnify');
 const subMenu = require('./subMenu.js');
 const tools = require('./menuTools.js');
 let status = '';
-
-let argument;
+// let argument;
 
 //****************************************************************************************************
 // Visit ./functions/ to see logic & API endpoints
@@ -38,21 +37,24 @@ let argument;
 //****************************************************************************************************
 // MAIN MENU
 //----------------------------------------------------------------------------------------------------
-const menu = () => {
-  !argument ?
-    inquirer.prompt([
-    {
+const menu = (argument) => {
+  let cliArg;
+  if (argument === undefined) {
+    inquirer.prompt([{
       type: 'input',
       name: 'menu',
       message: "Type 'Menu' or hit enter to see the menu. Type in a player's name to search for a player."
     }]).then(answer => {
-      console.log('\033[2J');
-      let name = argument || answer.menu;
+      let name = answer.menu;
       answer.menu === '' ? subMenu.subMenu() :
         answer.menu.toLowerCase().trim() === 'menu' ? subMenu.subMenu() :
         tools.quickNameLookup(name);
     })
-   :   tools.quickNameLookup(argument, status);
+  } else {
+    let cliArg = !argument[3] ? argument[2] : argument[3][0] === '-' ? argument[2] : `${argument[2]} ${argument[3]}`
+    status = validateStatus(argument)
+    tools.quickNameLookup(cliArg, status);
+  }
 }
 
 module.exports.menu = menu;
@@ -62,19 +64,17 @@ module.exports.menu = menu;
 //****************************************************************************************************
 
 // checks to see if if the user passed options as arguments and formats the name passed as the argument
-argument = !process.argv[3] ? process.argv[2] : process.argv[3][0]==='-' ? process.argv[2] : `${process.argv[2]} ${process.argv[3]}`
 
 //----------------------------------------------------------------------------------------------------
-
 // checks see if the user wanted to search for active or inactive players
 const validateStatus = (args) => {
-  switch(args.length){
+  switch (args.length) {
     case 3:
-    return 'Y'
+      return 'Y'
     case 4:
-    return args[3] === '-a' ? 'Y' : args[3] === '-i' ? 'N' : 'Y';
+      return args[3] === '-a' ? 'Y' : args[3] === '-i' ? 'N' : 'Y';
     case 5:
-    return args[4]==='-a' ? 'Y' : args[4]==='-i' ? 'N' : 'Y';
+      return args[4] === '-a' ? 'Y' : args[4] === '-i' ? 'N' : 'Y';
   }
 }
 
@@ -82,6 +82,6 @@ const validateStatus = (args) => {
 // INITIALIZE ARGUMENTS LOGIC
 //****************************************************************************************************
 
-status = validateStatus(process.argv)
+// status = validateStatus(process.argv)
 
 //----------------------------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ const subMenu = () => {
       message: 'Welcome to the MLB stats app. What would you like to do?',
       choices: ['Roster Search Menu', 'Player Search Menu', 'Player Statistics Menu', 'Leaderboards', 'Reports Menu', 'Back']
     }]).then(submenu => {
-      console.log('\033[2J');
+      // console.log('\033[2J');
       let currentMenu = Object.keys(submenu)[0];
       switch (submenu.subMenu) {
         case 'Roster Search Menu':

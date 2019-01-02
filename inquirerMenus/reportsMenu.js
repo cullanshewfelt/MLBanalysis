@@ -21,10 +21,12 @@ const reportsPrompt = (currentMenu) => {
           transactionsPrompt();
           break;
         case 'Injury Report':
-          // seasonPitchingPrompt();
+          console.log('Injury Report Not Working');
+          reportsPrompt();
           break;
         case 'Broadcast Information':
-          // seasonPitchingPrompt();
+          console.log('Broadcast Information Not Working');
+          reportsPrompt();
           break;
         case 'Main Menu':
           menu.menu();
@@ -48,7 +50,7 @@ const transactionsPrompt = () => {
       name: 'endDate',
       message: 'Enter the end date (format: YYYYMMDD), or hit ENTER to search for the last week'
     }]).then(submenu => {
-      let startDate = submenu.startDate || (parseInt(moment().format('YYYYMMDD'))-7).toString();
+      let startDate = submenu.startDate || (moment().subtract(7, 'days').format('YYYYMMDD'));
       let endDate = submenu.endDate || moment().format('YYYYMMDD');
         reports.transactionsOverPeriod(startDate, endDate, stats => {
           startDate = `${startDate.slice(4,6)}/${startDate.slice(6,8)}/${startDate.slice(0,4)}`

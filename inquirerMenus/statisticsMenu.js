@@ -26,7 +26,7 @@ const statsSearchPrompt = () => {
           seasonPitchingPrompt();
           break;
         case 'Main Menu':
-          console.log('\033[2J');
+          // console.log('\033[2J');
           menu.menu();
           break;
       };

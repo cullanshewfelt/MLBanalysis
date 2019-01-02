@@ -5,6 +5,7 @@ const rosterSearch = require('../functions/rosterSearch.js');
 const playerSearch = require('../functions/playerSearch.js');
 const menu = require('./mainMenu.js');
 
+
 //----------------------------------------------------------------------------------------------------
 // ROSTER/TEAM SEARCH MENUS
 //----------------------------------------------------------------------------------------------------
@@ -19,15 +20,15 @@ const rosterSearchPrompt = () => {
     }]).then(submenu => {
       switch (submenu.rosterSearch) {
         case '40 Man Roster':
-          console.log('\033[2J');
+          // console.log('\033[2J');
           fortyManRoster();
           break;
         case 'List Teams':
-          console.log('\033[2J');
+          // console.log('\033[2J');
           listTeams();
           break;
         case 'Roster By Season':
-          console.log('\033[2J');
+          // console.log('\033[2J');
           rosterBySeason();
           break;
         case 'Main Menu':
@@ -47,7 +48,7 @@ const fortyManRoster = () => {
       name: 'team_id',
       message: 'Enter a Team ID to See Their 40 Man Roster'
     }]).then(answer => {
-      console.log('\033[2J');
+      // console.log('\033[2J');
       rosterSearch.fortyManRoster(answer.team_id.toString(), data => {
         let columns = tools.quickColumn(data);
         console.log('****************************************************************************************************************************************************************')
@@ -62,7 +63,7 @@ const fortyManRoster = () => {
 //----------------------------------------------------------------------------------------------------
 
 const listTeams = () => {
-  console.log('\033[2J');
+  // console.log('\033[2J');
   inquirer
     .prompt([{
       type: 'input',
@@ -84,7 +85,7 @@ const listTeams = () => {
 //----------------------------------------------------------------------------------------------------
 
 const rosterBySeason = () => {
-  console.log('\033[2J');
+  // console.log('\033[2J');
   inquirer
     .prompt([{
       type: 'input',
@@ -108,7 +109,7 @@ const rosterBySeason = () => {
           console.log(`***************************************** ${roster[0].team}'s Roster ***************************************`)
           console.log('**************************************************************************************************************')
           console.log(columns);
-          searchByIdPrompt();
+          playerSearchMenu.searchByIdPrompt();
         })
       });
     });

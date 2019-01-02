@@ -16,7 +16,7 @@ const playerSearchPrompt = (currentMenu) => {
       message: 'What would you like to do?',
       choices: ['Search For a Player By Name', 'Search For a Player By ID', 'Search For a Player\'s Teams', 'Main Menu']
     }]).then(submenu => {
-      console.log('\033[2J');
+      // console.log('\033[2J');
       switch (submenu.playerSearch) {
         case 'Search For a Player By Name':
           searchByNamePrompt(currentMenu);

@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const columnify = require('columnify');
+const menu = require('./mainMenu.js');
 const playerSearch = require('../functions/playerSearch.js');
+const playerSearchMenu = require('./playerSearchMenu.js');
 const seasonStats = require('../functions/seasonStats.js');
 //****************************************************************************************************
 // QUICK FUNCTIONS
@@ -50,8 +52,8 @@ const quickStatsLookup = (player) => {
       }
     ]).then(answer => {
       player.position === 'P' ?
-        quickPitchingLookup(answer, player.player_id) :
-        quickHittingLookup(answer, player.player_id);
+        quickPitchingLookup(answer, player) :
+        quickHittingLookup(answer, player);
     })
 }
 
@@ -59,9 +61,9 @@ module.exports.quickStatsLookup = quickStatsLookup;
 
 //----------------------------------------------------------------------------------------------------
 
-const quickHittingLookup = (answer, player_id) => {
-  seasonStats.seasonHittingStats(player_id, answer.season, answer.game_type, stats => {
-    quickPlayerStats(player_id, stats, answer.season);
+const quickHittingLookup = (answer, player) => {
+  seasonStats.seasonHittingStats(player.player_id, answer.season, answer.game_type, stats => {
+    quickPlayerStats(player, stats, answer.season);
   });
 }
 
@@ -69,9 +71,9 @@ module.exports.quickHittingLookup = quickHittingLookup;
 
 //----------------------------------------------------------------------------------------------------
 
-const quickPitchingLookup = (answer, player_id) => {
-  seasonStats.seasonPitchingStats(player_id, answer.season, answer.game_type, stats => {
-    quickPlayerStats(player_id, stats, answer.season);
+const quickPitchingLookup = (answer, player) => {
+  seasonStats.seasonPitchingStats(player.player_id, answer.season, answer.game_type, stats => {
+    quickPlayerStats(player, stats, answer.season);
   });
 }
 
@@ -79,8 +81,8 @@ module.exports.quickPitchingLookup = quickPitchingLookup;
 
 //----------------------------------------------------------------------------------------------------
 
-const quickPlayerStats = (player_id, stats, season, currentMenu) => {
-  playerSearch.playerLookup(player_id, data => {
+const quickPlayerStats = (player, stats, season, currentMenu) => {
+  playerSearch.playerLookup(player.player_id, data => {
     currentMenu = currentMenu ? currentMenu : data.position === 'P' ? 'Pitching' : 'Hitting'
     let position = data.position === 'P' ? 'Pitching' : 'Hitting'
     let columns = quickColumn(stats)
@@ -88,11 +90,41 @@ const quickPlayerStats = (player_id, stats, season, currentMenu) => {
     console.log(`****** ${data.name}'s ${currentMenu} Statistics for ${season} ******`)
     console.log('****************************************************************')
     console.log(columns);
+    searchAgain(player);
   });
 }
 
 module.exports.quickPlayerStats = quickPlayerStats;
 
+//----------------------------------------------------------------------------------------------------
+
+const searchAgain = (player) => {
+  inquirer
+    .prompt([{
+      type: 'list',
+      name: 'menu',
+      message: 'What would you like to do?',
+      choices: ['Search Another Year for This Player', 'Search for a Different Player', 'Main Menu']
+    }]).then(answer => {
+      switch (answer.menu) {
+        case 'Search Another Year for This Player':
+          quickStatsLookup(player);
+          break;
+        case 'Search for a Different Player':
+          playerSearchMenu.playerSearchPrompt();
+          break;
+        case 'Main Menu':
+          menu.menu();
+          break;
+      }
+    })
+}
+
+
+
+module.exports.searchAgain = searchAgain;
+//----------------------------------------------------------------------------------------------------
+// VALIDATOR AND FILTER FUNCTIONS FOR INQUIRER
 //----------------------------------------------------------------------------------------------------
 
 const validateYear = (year) => {
