@@ -45,7 +45,7 @@ const menu = (argument) => {
       mainMenuPrompt();
     } else {
       cliArg = !argument[3] ? argument[2] : argument[3][0] === '-' ? argument[2] : `${argument[2]} ${argument[3]}`
-      status = validateStatus(argument)
+      status = tools.validateStatus(argument)
       tools.quickNameLookup(cliArg, status);
     }
   } else {
@@ -71,24 +71,7 @@ const mainMenuPrompt = () => {
 }
 
 module.exports.mainMenuPrompt = mainMenuPrompt;
-//****************************************************************************************************
-// ARGUMENTS LOGIC
-//****************************************************************************************************
 
-// checks to see if if the user passed options as arguments and formats the name passed as the argument
-
-//----------------------------------------------------------------------------------------------------
-// checks see if the user wanted to search for active or inactive players
-const validateStatus = (args) => {
-  switch (args.length) {
-    case 3:
-      return 'Y'
-    case 4:
-      return args[3] === '-a' ? 'Y' : args[3] === '-i' ? 'N' : 'Y';
-    case 5:
-      return args[4] === '-a' ? 'Y' : args[4] === '-i' ? 'N' : 'Y';
-  }
-}
 
 //****************************************************************************************************
 // INITIALIZE ARGUMENTS LOGIC

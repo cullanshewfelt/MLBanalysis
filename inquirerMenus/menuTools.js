@@ -4,12 +4,12 @@ const menu = require('./mainMenu.js');
 const playerSearch = require('../functions/playerSearch.js');
 const playerSearchMenu = require('./playerSearchMenu.js');
 const seasonStats = require('../functions/seasonStats.js');
+
 //****************************************************************************************************
 // QUICK FUNCTIONS
 //****************************************************************************************************
 // I found myself re-using this code a lot so I just made them quick little functions instead.
 //----------------------------------------------------------------------------------------------------
-
 const quickColumn = (data) => {
   let columns = columnify(data, {
     columnSplitter: '__|__',
@@ -32,6 +32,17 @@ const quickNameLookup = (name, status) => {
   });
 }
 module.exports.quickNameLookup = quickNameLookup;
+
+//----------------------------------------------------------------------------------------------------
+
+const nameToID =  (name, status) => {
+  let playerId;
+  playerSearch.playerSearch(name, validateStatus(status) || 'Y', player => {
+    console.log(41, player.player_id)
+    return player.player_id;
+  });
+}
+module.exports.nameToID = nameToID;
 
 //----------------------------------------------------------------------------------------------------
 
@@ -123,8 +134,39 @@ const searchAgain = (player) => {
 
 
 module.exports.searchAgain = searchAgain;
-//----------------------------------------------------------------------------------------------------
+//****************************************************************************************************
 // VALIDATOR AND FILTER FUNCTIONS FOR INQUIRER
+//****************************************************************************************************
+// ARGUMENTS LOGIC
+// checks to see if if the user passed options as arguments and formats the name passed as the argument
+//----------------------------------------------------------------------------------------------------
+// checks see if the user wanted to search for active or inactive players
+const validateStatus = (args) => {
+  switch (args.length) {
+    case 3:
+      return 'Y'
+    case 4:
+      return args[3] === '-a' ? 'Y' : args[3] === '-i' ? 'N' : 'Y';
+    case 5:
+      return args[4] === '-a' ? 'Y' : args[4] === '-i' ? 'N' : 'Y';
+  }
+}
+
+module.exports.validateStatus = validateStatus;
+
+//----------------------------------------------------------------------------------------------------
+
+const statusFilter = (status) => {
+  switch (status) {
+    case 'Active':
+      return '-a'
+    case 'Inactive':
+      return '-i'
+    }
+}
+
+module.exports.statusFilter = statusFilter;
+
 //----------------------------------------------------------------------------------------------------
 
 const validateYear = (year) => {

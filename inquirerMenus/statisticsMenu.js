@@ -37,32 +37,43 @@ module.exports.statsSearchPrompt = statsSearchPrompt;
 //----------------------------------------------------------------------------------------------------
 
 const seasonHittingPrompt = () => {
-  let currentMenu = 'Hitting';
   // console.log('\033[2J');
-  inquirer
+   inquirer
     .prompt([{
         type: 'input',
-        name: 'id',
-        message: 'Enter Player ID to see Hitting Stats'
-      },
-      {
-        type: 'input',
-        name: 'season',
-        message: 'Enter the year (format: YYYY) of the season you want stats for',
-        validate: tools.validateYear
+        name: 'name',
+        message: 'Enter Player\'s Name You\'d Wish to see Hitting Stats For'
       },
       {
         type: 'list',
-        name: 'game_type',
-        message: 'Choose the game type you want stats for',
-        choices: ['Regular Season', 'World Series', 'League Championship', 'First Round (Wild Card)', 'Division Series', 'Spring Training'],
-        filter: tools.gameTypeFilter
-      }
-    ]).then(answer => {
-      seasonStats.seasonHittingStats(answer.id, answer.season, answer.game_type, stats => {
-        tools.quickPlayerStats(answer.id, stats, answer.season, currentMenu);
-      });
-    });
+        name: 'status',
+        message: 'Is this player active or inactive?',
+        choices: ['Active', 'Inactive'],
+        filter: tools.statusFilter
+      }]).then(answerOne => {
+        console.log(answerOne.name, answerOne.status)
+        inquirer
+        .prompt([{
+          type: 'input',
+          name: 'season',
+          message: 'Enter the year (format: YYYY) of the season you want stats for',
+          validate: tools.validateYear
+        },
+        {
+          type: 'list',
+          name: 'game_type',
+          message: 'Choose the game type you want stats for',
+          choices: ['Regular Season', 'World Series', 'League Championship', 'First Round (Wild Card)', 'Division Series', 'Spring Training'],
+          filter: tools.gameTypeFilter
+        }
+      ]).then(answerTwo => {
+        let playerId = tools.nameToID(answerOne.name, answerOne.status)
+        console.log(71, playerId)
+        seasonStats.seasonHittingStats(playerId, answerTwo.season, answerTwo.game_type, stats => {
+          tools.quickPlayerStats(playerId, stats, answerTwo.season, currentMenu);
+        });
+      })
+    })
 };
 
 module.exports.seasonHittingPrompt = seasonHittingPrompt;

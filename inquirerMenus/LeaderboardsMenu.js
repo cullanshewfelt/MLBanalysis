@@ -107,7 +107,7 @@ const pitchingLeadersPrompt = () => {
           leaderboardsPrompt();
           break;
         default:
-        console.log(110, sortColumn)
+        // console.log(110, sortColumn)
           inquirer
             .prompt([{
               type: 'input',
@@ -126,7 +126,6 @@ const pitchingLeadersPrompt = () => {
               choices: ['Regular Season', 'World Series', 'League Championship', 'First Round (Wild Card)', 'Division Series', 'Spring Training']
             }]).then(answer => {
               let game_type = tools.gameTypeFilter(answer.game_type);
-              // let sort_column = tools.sortColumnFilter(answer.sort_column);
               leaderboards.pitchingLeaders(answer.results, game_type, answer.season, filteredSortColumn, stats => {
                 let columns = tools.quickColumn(stats)
                 console.log('******************************************************************************************************************************************************************************')
