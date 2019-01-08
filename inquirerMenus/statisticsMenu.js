@@ -37,6 +37,7 @@ module.exports.statsSearchPrompt = statsSearchPrompt;
 //----------------------------------------------------------------------------------------------------
 
 const seasonHittingPrompt = () => {
+  let currentMenu = 'Hitting';
   // console.log('\033[2J');
    inquirer
     .prompt([{
@@ -49,9 +50,9 @@ const seasonHittingPrompt = () => {
         name: 'status',
         message: 'Is this player active or inactive?',
         choices: ['Active', 'Inactive'],
-        filter: tools.statusFilter
+        filter: tools.statusFilter,
+        validate: tools.validateStatus
       }]).then(answerOne => {
-        console.log(answerOne.name, answerOne.status)
         inquirer
         .prompt([{
           type: 'input',
@@ -67,11 +68,11 @@ const seasonHittingPrompt = () => {
           filter: tools.gameTypeFilter
         }
       ]).then(answerTwo => {
-        let playerId = tools.nameToID(answerOne.name, answerOne.status)
-        console.log(71, playerId)
-        seasonStats.seasonHittingStats(playerId, answerTwo.season, answerTwo.game_type, stats => {
-          tools.quickPlayerStats(playerId, stats, answerTwo.season, currentMenu);
-        });
+        tools.nameToID(answerOne.name, answerOne.status, player => {
+          seasonStats.seasonHittingStats(player.player_id, answerTwo.season, answerTwo.game_type, stats => {
+            tools.quickPlayerStats(player, stats, answerTwo.season, currentMenu);
+          });
+        })
       })
     })
 };

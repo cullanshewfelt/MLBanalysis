@@ -3,6 +3,7 @@ const columnify = require('columnify');
 const menu = require('./mainMenu.js');
 const playerSearch = require('../functions/playerSearch.js');
 const playerSearchMenu = require('./playerSearchMenu.js');
+const statisticsMenu = require*('./statisticsMenu.js');
 const seasonStats = require('../functions/seasonStats.js');
 
 //****************************************************************************************************
@@ -35,11 +36,10 @@ module.exports.quickNameLookup = quickNameLookup;
 
 //----------------------------------------------------------------------------------------------------
 
-const nameToID =  (name, status) => {
-  let playerId;
-  playerSearch.playerSearch(name, validateStatus(status) || 'Y', player => {
-    console.log(41, player.player_id)
-    return player.player_id;
+const nameToID =  (name, sts, callback) => {
+  let status = sts === '-i' ? 'N' : 'Y'
+  playerSearch.playerSearch(name, status || 'Y', player => {
+     callback(player);
   });
 }
 module.exports.nameToID = nameToID;
@@ -115,14 +115,14 @@ const searchAgain = (player) => {
       type: 'list',
       name: 'menu',
       message: 'What would you like to do?',
-      choices: ['Search Another Year for This Player', 'Search for a Different Player', 'Main Menu']
+      choices: ['Search Another Year for This Player', 'Search Stats for a Different Player', 'Main Menu']
     }]).then(answer => {
       switch (answer.menu) {
         case 'Search Another Year for This Player':
           quickStatsLookup(player);
           break;
-        case 'Search for a Different Player':
-          playerSearchMenu.playerSearchPrompt();
+        case 'Search Stats for a Different Player':
+          statisticsMenu.seasonHittingPrompt();
           break;
         case 'Main Menu':
           menu.menu();
