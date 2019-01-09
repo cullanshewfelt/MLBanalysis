@@ -3,7 +3,7 @@ const columnify = require('columnify');
 const menu = require('./mainMenu.js');
 const playerSearch = require('../functions/playerSearch.js');
 const playerSearchMenu = require('./playerSearchMenu.js');
-const statisticsMenu = require*('./statisticsMenu.js');
+const statisticsMenu = require ('./statisticsMenu.js');
 const seasonStats = require('../functions/seasonStats.js');
 
 //****************************************************************************************************
@@ -36,10 +36,10 @@ module.exports.quickNameLookup = quickNameLookup;
 
 //----------------------------------------------------------------------------------------------------
 
-const nameToID =  (name, sts, callback) => {
+const nameToID = (name, sts, callback) => {
   let status = sts === '-i' ? 'N' : 'Y'
   playerSearch.playerSearch(name, status || 'Y', player => {
-     callback(player);
+    callback(player);
   });
 }
 module.exports.nameToID = nameToID;
@@ -116,13 +116,15 @@ const searchAgain = (player) => {
       name: 'menu',
       message: 'What would you like to do?',
       choices: ['Search Another Year for This Player', 'Search Stats for a Different Player', 'Main Menu']
-    }]).then(answer => {
-      switch (answer.menu) {
+    }]).then(submenu => {
+      switch (submenu.menu) {
         case 'Search Another Year for This Player':
           quickStatsLookup(player);
           break;
         case 'Search Stats for a Different Player':
-          statisticsMenu.seasonHittingPrompt();
+          statisticsMenu.statsSearchPrompt();
+          // pitchingOrHittingPrompt();
+          // player.position === 'P' ? statisticsMenu.seasonPitchingPrompt() : statisticsMenu.seasonHittingPrompt();
           break;
         case 'Main Menu':
           menu.menu();
@@ -134,6 +136,30 @@ const searchAgain = (player) => {
 
 
 module.exports.searchAgain = searchAgain;
+
+// //----------------------------------------------------------------------------------------------------
+//
+// const pitchingOrHittingPrompt = () => {
+//   inquirer
+//     .prompt([{
+//       type: 'list',
+//       name: 'menu',
+//       message: 'Would You Like to Search For Hitting Stats or Pithcing Stats?',
+//       choices: ['Season Hitting Stats', 'Season Pitching Stats', 'Main Menu']
+//     }]).then(answer => {
+//       switch (answer.menu) {
+//         case 'Season Hitting Stats':
+//           // statisticsMenu.seasonHittingPrompt();
+//           break;
+//         case 'Season Pitching Stats':
+//           // statisticsMenu.seasonPitchingPrompt();
+//           break;
+//         case 'Main Menu':
+//           menu.menu();
+//           break;
+//       }
+//     })
+// }
 //****************************************************************************************************
 // VALIDATOR AND FILTER FUNCTIONS FOR INQUIRER
 //****************************************************************************************************
@@ -162,7 +188,7 @@ const statusFilter = (status) => {
       return '-a'
     case 'Inactive':
       return '-i'
-    }
+  }
 }
 
 module.exports.statusFilter = statusFilter;

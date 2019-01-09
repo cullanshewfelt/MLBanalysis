@@ -15,7 +15,7 @@ const statsSearchPrompt = () => {
     .prompt([{
       type: 'list',
       name: 'statSearch',
-      message: 'What would you like to do?',
+      message: 'What would you like to see?',
       choices: ['Season Hitting Stats', 'Season Pitching Stats', 'Main Menu']
     }]).then(submenu => {
       switch (submenu.statSearch) {
@@ -43,7 +43,7 @@ const seasonHittingPrompt = () => {
     .prompt([{
         type: 'input',
         name: 'name',
-        message: 'Enter Player\'s Name You\'d Wish to see Hitting Stats For'
+        message: 'Enter Player\'s Name You Want to see Hitting Stats For'
       },
       {
         type: 'list',
@@ -85,12 +85,21 @@ const seasonPitchingPrompt = () => {
   let currentMenu = 'Pitching';
   // console.log('\033[2J');
   inquirer
-    .prompt([{
-        type: 'input',
-        name: 'id',
-        message: 'Enter Player ID to see Pitching Stats'
-      },
-      {
+   .prompt([{
+       type: 'input',
+       name: 'name',
+       message: 'Enter Player\'s Name You Want to see Pitching Stats For'
+     },
+     {
+       type: 'list',
+       name: 'status',
+       message: 'Is this player active or inactive?',
+       choices: ['Active', 'Inactive'],
+       filter: tools.statusFilter,
+       validate: tools.validateStatus
+     }]).then(answerOne => {
+       inquirer
+       .prompt([{
         type: 'input',
         name: 'season',
         message: 'Enter the year (format: YYYY) of the season you want stats for',
@@ -103,13 +112,17 @@ const seasonPitchingPrompt = () => {
         choices: ['Regular Season', 'World Series', 'League Championship', 'First Round (Wild Card)', 'Division Series', 'Spring Training'],
         filter: tools.gameTypeFilter
       }
-    ]).then(answer => {
-      seasonStats.seasonPitchingStats(answer.id, answer.season, answer.game_type, stats => {
-        tools.quickPlayerStats(answer.id, stats, answer.season, currentMenu);
-      });
-    });
+    ]).then(answerTwo => {
+      tools.nameToID(answerOne.name, answerOne.status, player => {
+        seasonStats.seasonPitchingStats(player.player_id, answerTwo.season, answerTwo.game_type, stats => {
+          tools.quickPlayerStats(player, stats, answerTwo.season, currentMenu);
+        });
+      })
+    })
+  })
 };
 
-module.exports.seasonPitchingPrompt = seasonHittingPrompt;
+
+module.exports.seasonPitchingPrompt = seasonPitchingPrompt;
 
 //----------------------------------------------------------------------------------------------------

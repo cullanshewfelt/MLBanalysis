@@ -46,7 +46,7 @@ const playerLookup = (player_id, callback) => {
 // season is an optional parameter
 //****************************************************************************************************
 const playerTeams = (player_id, season, callback) => {
-  // Ternary operate checks for a season, if there is one, include it, if not, return all teams/seasons played for.
+  // Ternary operator checks for a season, if there is one, include it, if not, return all teams/seasons played for.
   let link = season
   ? `http://lookup-service-prod.mlb.com/json/named.player_teams.bam?season='${season}'&player_id='${player_id}'`
   : `http://lookup-service-prod.mlb.com/json/named.player_teams.bam?player_id='${player_id}'`;
