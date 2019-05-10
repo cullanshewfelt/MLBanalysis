@@ -46,6 +46,9 @@ Just install required npm dependencies
 
     node mlb.js babe ruth -i
 
+    ![Example](./images/MLB_Analysis_Example.gif)
+
+
 ## [Built With](#builtwith)
 
 -   [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js, used to handle HTTP GET/POST requests
