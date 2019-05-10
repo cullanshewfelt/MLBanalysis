@@ -46,8 +46,7 @@ Just install required npm dependencies
 
     node mlb.js babe ruth -i
 
-    ![Example](./images/MLB_Analysis_Example.gif)
-
+![Example](./images/MLB_Analysis_Example.gif)
 
 ## [Built With](#builtwith)
 
