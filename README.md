@@ -1,6 +1,6 @@
 # MLBanalysis
 
-A small CLI app to retrieve MLB statistics and data.
+A small CLI application to retrieve MLB statistics and data.
 
 ## Table of Contents
 
